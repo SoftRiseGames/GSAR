@@ -5,11 +5,13 @@ using UnityEngine;
 public class TEST_PlayerScript : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;               // Karakter rigidbody
-    [SerializeField] Animator animator;                  // Karakter animator
+    [SerializeField] private Animator animator;          // Karakter animator
     [SerializeField] private float moveSpeed = 5f;       // Hareket hýzý
     [SerializeField] private float rotationSpeed = 10f;  // Dönüþ hýzý
 
-    private enum Behaviors {Waiting,Walking,Climbing}    // Davranýþlarý temsil eden enum 
+    
+
+    private enum Behaviors {Waiting,Walking}    // Davranýþlarý temsil eden enum 
 
     [SerializeField] private Behaviors behaviors;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
 
@@ -18,7 +20,9 @@ public class TEST_PlayerScript : MonoBehaviour
         Move();                      // Karakteri hareket ettiren fonksiyon.
         Rotate();                    // Karakterin dönüþünü kontrol eden fonksiyon.
         AnimControl();               // Karakterin animasyon kontrolünü saðlayan fonksiyon.
+        
     }
+    
     private void Move()
     {
         float horizontalInput = Input.GetAxis("Horizontal");          // Yatay (sol-sað) giriþ deðeri.
@@ -54,6 +58,7 @@ public class TEST_PlayerScript : MonoBehaviour
         }
     }
 
+   
     private void AnimControl()
     {
         
@@ -68,4 +73,5 @@ public class TEST_PlayerScript : MonoBehaviour
                 break;
         }
     }
+   
 }
