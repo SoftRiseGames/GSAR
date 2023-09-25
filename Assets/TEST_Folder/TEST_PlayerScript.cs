@@ -12,7 +12,7 @@ public class TEST_PlayerScript : MonoBehaviour
 
     
 
-    private enum Behaviors {Waiting,Walking,BowUp,BowDown}    // Davranýþlarý temsil eden enum 
+    private enum Behaviors {Waiting,Walking,BowUp,BowDown,Roll}    // Davranýþlarý temsil eden enum 
 
     [SerializeField] private Behaviors behaviors= Behaviors.Waiting;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
 
@@ -44,7 +44,11 @@ public class TEST_PlayerScript : MonoBehaviour
         // Eðer hareket yok ise ne durumda olduðunu kontrol etmek için fonksiyona bakar.
         else
         {
-            EquipmentControl();
+            BowControl();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            behaviors = Behaviors.Roll;
         }
 
     
@@ -64,7 +68,7 @@ public class TEST_PlayerScript : MonoBehaviour
         }
     }
     
-    private void EquipmentControl()
+    private void BowControl()
     {
         
 
@@ -101,6 +105,7 @@ public class TEST_PlayerScript : MonoBehaviour
                 animator.SetBool("Walking", false);      // Waiting durumundayken "Walking" animasyonunu durdurur.
                 animator.SetBool("Waiting", true);
                 animator.SetBool("BowUp", false);
+                animator.SetBool("Roll", false);
                 break;
             case Behaviors.BowUp:
                 animator.SetBool("BowUp", true);           // BowUp durumundayken "Bow" animasyonunu çalýþtýrýr.
@@ -109,6 +114,10 @@ public class TEST_PlayerScript : MonoBehaviour
             case Behaviors.BowDown:
                 animator.SetBool("BowDown", true);       // BowDown durumundayken "BowDown" animasyonunu çalýþtýrýr.
                 animator.SetBool("BowUp", false);
+                break;
+            case Behaviors.Roll:
+                animator.SetBool("Roll", true);
+                animator.SetBool("Waiting", false);
                 break;
 
         }
