@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TEST_PlayerScript : MonoBehaviour
@@ -11,9 +12,9 @@ public class TEST_PlayerScript : MonoBehaviour
 
     
 
-    private enum Behaviors {Waiting,Walking}    // Davranýþlarý temsil eden enum 
+    private enum Behaviors {Waiting,Walking,BowUp,BowDown}    // Davranýþlarý temsil eden enum 
 
-    [SerializeField] private Behaviors behaviors;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
+    [SerializeField] private Behaviors behaviors= Behaviors.Waiting;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
 
     private void Update()
     {
@@ -34,16 +35,18 @@ public class TEST_PlayerScript : MonoBehaviour
         rb.MovePosition(rb.position + movement);
 
         // Eðer karakter hiçbir yere gitmiyorsa , Waiting durumuna geçer.
-        if (horizontalInput == 0 && verticalInput == 0)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
-            behaviors = Behaviors.Waiting; 
+            
+            behaviors = Behaviors.Walking;
+
+        }
+        else 
+        {
+            EquipmentControl();
         }
         
-        // Karakter herhangi bir yöne hareket ediyorsa, Walking durumuna geçer.
-        else
-        {
-            behaviors = Behaviors.Walking;
-        }
+        
     }
     private void Rotate()
     {
@@ -57,7 +60,23 @@ public class TEST_PlayerScript : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);  
         }
     }
+    
+    private void EquipmentControl()
+    {
+        
 
+        if (Input.GetMouseButton(1))
+        {
+            behaviors = Behaviors.BowUp;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+
+            behaviors = Behaviors.BowDown;
+        }
+
+
+    }
    
     private void AnimControl()
     {
@@ -66,12 +85,26 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             case Behaviors.Walking:         
                 animator.SetBool("Walking", true);       // Walking durumundayken "Walking" animasyonunu çalýþtýrýr.
+                animator.SetBool("Waiting", false);
+                animator.SetBool("Bow", false);
                 break;
             
             case Behaviors.Waiting:
                 animator.SetBool("Walking", false);      // Waiting durumundayken "Walking" animasyonunu durdurur.
+                animator.SetBool("Waiting", true);
+                animator.SetBool("Bow", false);
                 break;
+            case Behaviors.BowUp:
+                animator.SetBool("Bow", true);
+                animator.SetBool("Waiting", false);
+                break;
+            case Behaviors.BowDown:
+                animator.SetBool("BowDown", true);
+                animator.SetBool("Bow", false);
+                break;
+
         }
+
     }
    
 }
