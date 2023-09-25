@@ -34,17 +34,20 @@ public class TEST_PlayerScript : MonoBehaviour
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized * moveSpeed * Time.deltaTime; 
         rb.MovePosition(rb.position + movement);
 
-        // Eðer karakter hiçbir yere gitmiyorsa , Waiting durumuna geçer.
-        if (horizontalInput != 0 || verticalInput != 0)
+        // Eðer hareket var ise , karakter Walking durumuna geçer.
+        if (horizontalInput != 0 || verticalInput != 0)          
         {
             
-            behaviors = Behaviors.Walking;
+            behaviors = Behaviors.Walking;      
 
         }
-        else 
+        // Eðer hareket yok ise ne durumda olduðunu kontrol etmek için fonksiyona bakar.
+        else
         {
             EquipmentControl();
         }
+
+    
         
         
     }
@@ -65,14 +68,18 @@ public class TEST_PlayerScript : MonoBehaviour
     {
         
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))            //Eðer mouse sað týk basýlý ise BowUp duruma geçer.
         {
             behaviors = Behaviors.BowUp;
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1))     //Mouse basýlý tutulmayý býraktýðýnda BowDown duruma geçer.
         {
 
             behaviors = Behaviors.BowDown;
+        }
+        else                                    //Hiçbir hareket yok ise Waiting duruma geçer.
+        {
+            behaviors = Behaviors.Waiting;
         }
 
 
@@ -85,22 +92,23 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             case Behaviors.Walking:         
                 animator.SetBool("Walking", true);       // Walking durumundayken "Walking" animasyonunu çalýþtýrýr.
-                animator.SetBool("Waiting", false);
-                animator.SetBool("Bow", false);
+                animator.SetBool("Waiting", false);      
+                animator.SetBool("BowUp", false);
+                animator.SetBool("BowDown", false);
                 break;
             
             case Behaviors.Waiting:
                 animator.SetBool("Walking", false);      // Waiting durumundayken "Walking" animasyonunu durdurur.
                 animator.SetBool("Waiting", true);
-                animator.SetBool("Bow", false);
+                animator.SetBool("BowUp", false);
                 break;
             case Behaviors.BowUp:
-                animator.SetBool("Bow", true);
+                animator.SetBool("BowUp", true);           // BowUp durumundayken "Bow" animasyonunu çalýþtýrýr.
                 animator.SetBool("Waiting", false);
                 break;
             case Behaviors.BowDown:
-                animator.SetBool("BowDown", true);
-                animator.SetBool("Bow", false);
+                animator.SetBool("BowDown", true);       // BowDown durumundayken "BowDown" animasyonunu çalýþtýrýr.
+                animator.SetBool("BowUp", false);
                 break;
 
         }
