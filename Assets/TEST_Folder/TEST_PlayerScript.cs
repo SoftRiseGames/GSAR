@@ -114,7 +114,7 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             animator.SetInteger("Attack", 3);
         }
-        else if (Input.GetMouseButtonDown(0) && behaviors == Behaviors.Attack && animator.GetInteger("Attack") == 3)
+        else if ( behaviors == Behaviors.Waiting)
         {
             animator.SetInteger("Attack", 0);
         }
