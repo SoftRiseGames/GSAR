@@ -91,6 +91,7 @@ public class TEST_PlayerScript : MonoBehaviour
 
 
     }
+    
     private void SwordControl()
     {
         if (Input.GetMouseButtonDown(0))
@@ -114,11 +115,13 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             animator.SetInteger("Attack", 3);
         }
-        else if ( behaviors == Behaviors.Waiting)
-        {
-            animator.SetInteger("Attack", 0);
-        }
+       
+        
 
+    }
+    private void AttackFinished()
+    {
+        animator.SetInteger("Attack", 0);
     }
     private void AnimControl()
     {
