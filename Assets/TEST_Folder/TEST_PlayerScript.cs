@@ -111,7 +111,7 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             animator.SetInteger("Attack", 2);
         }
-        else if (Input.GetMouseButtonDown(0) && behaviors == Behaviors.Attack && animator.GetInteger("Attack") == 2)
+        else if (Input.GetMouseButtonDown(0) && animator.GetInteger("Attack") == 2)
         {
             animator.SetInteger("Attack", 3);
         }
@@ -133,6 +133,7 @@ public class TEST_PlayerScript : MonoBehaviour
                 animator.SetBool("Waiting", false);      
                 animator.SetBool("BowUp", false);
                 animator.SetBool("BowDown", false);
+                animator.SetBool("Roll", false);
                 break;
             
             case Behaviors.Waiting:
