@@ -12,7 +12,7 @@ public class TEST_PlayerScript : MonoBehaviour
 
     
 
-    private enum Behaviors {Waiting,Walking,BowUp,BowDown,Roll}    // Davranýþlarý temsil eden enum 
+    private enum Behaviors {Waiting,Walking,BowUp,BowDown,Roll,Attack}    // Davranýþlarý temsil eden enum 
 
     [SerializeField] private Behaviors behaviors= Behaviors.Waiting;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
 
@@ -21,6 +21,7 @@ public class TEST_PlayerScript : MonoBehaviour
         Move();                      // Karakteri hareket ettiren fonksiyon.
         Rotate();                    // Karakterin dönüþünü kontrol eden fonksiyon.
         AnimControl();               // Karakterin animasyon kontrolünü saðlayan fonksiyon.
+        
         
     }
     
@@ -45,6 +46,8 @@ public class TEST_PlayerScript : MonoBehaviour
         else
         {
             BowControl();
+            SwordControl();
+            
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -88,7 +91,35 @@ public class TEST_PlayerScript : MonoBehaviour
 
 
     }
-   
+    private void SwordControl()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            behaviors = Behaviors.Attack;
+
+        }
+        
+    }
+    private void AttackComboSystem()
+    {
+        if (Input.GetMouseButtonDown(0) && behaviors==Behaviors.Attack && animator.GetInteger("Attack")==0)
+        {
+            animator.SetInteger("Attack", 1);
+        }
+        else if (Input.GetMouseButtonDown(0) && behaviors == Behaviors.Attack && animator.GetInteger("Attack") == 1)
+        {
+            animator.SetInteger("Attack", 2);
+        }
+        else if (Input.GetMouseButtonDown(0) && behaviors == Behaviors.Attack && animator.GetInteger("Attack") == 2)
+        {
+            animator.SetInteger("Attack", 3);
+        }
+        else if (Input.GetMouseButtonDown(0) && behaviors == Behaviors.Attack && animator.GetInteger("Attack") == 3)
+        {
+            animator.SetInteger("Attack", 0);
+        }
+
+    }
     private void AnimControl()
     {
         
@@ -106,10 +137,12 @@ public class TEST_PlayerScript : MonoBehaviour
                 animator.SetBool("Waiting", true);
                 animator.SetBool("BowUp", false);
                 animator.SetBool("Roll", false);
+                animator.SetBool("BowDown", false);
                 break;
             case Behaviors.BowUp:
                 animator.SetBool("BowUp", true);           // BowUp durumundayken "Bow" animasyonunu çalýþtýrýr.
                 animator.SetBool("Waiting", false);
+                animator.SetInteger("Attack", 0);
                 break;
             case Behaviors.BowDown:
                 animator.SetBool("BowDown", true);       // BowDown durumundayken "BowDown" animasyonunu çalýþtýrýr.
@@ -119,7 +152,10 @@ public class TEST_PlayerScript : MonoBehaviour
                 animator.SetBool("Roll", true);
                 animator.SetBool("Waiting", false);
                 break;
-
+            case Behaviors.Attack:
+                AttackComboSystem();
+                animator.SetBool("BowUp", false);
+                break;
         }
 
     }
