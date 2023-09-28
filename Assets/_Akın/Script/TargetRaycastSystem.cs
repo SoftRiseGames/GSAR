@@ -11,6 +11,7 @@ public class TargetRaycastSystem : MonoBehaviour
     public Transform pos2;
     private float counter;
     public float dist;
+    public bool isGo;
     [SerializeField] float lineDrawSpeed;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class TargetRaycastSystem : MonoBehaviour
         lineRenderer.enabled = false;
         counter = 0;
         lineRenderer.SetPosition(0, pos1.position);
+        
     }
 
     // Update is called once per frame
@@ -46,30 +48,37 @@ public class TargetRaycastSystem : MonoBehaviour
             counter = 0;
             dist = 0;
             lineRenderer.enabled = false;
+            isGo = false;
         }
 
         if(pos2 != null)
             LineRendererAnimation();
 
-        Debug.Log(counter);
+        //Debug.Log(counter);
+        Debug.Log(lineDrawSpeed);
 
     }
     public void LineRendererSystem()
     {
         lineRenderer.enabled = true;
+        isGo = true;
     }
+
     public void LineRendererAnimation()
     {
-        if (counter < dist)
+        if (counter < dist && isGo == true)
         {
             counter += .1f / lineDrawSpeed;
             float x = Mathf.Lerp(0, dist, counter);
-
+           
             Vector3 pointA = pos1.position;
             Vector3 pointB = pos2.position;
 
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            lineRenderer.SetPosition(1, pointAlongLine);
+            lineRenderer.SetPosition(1, pointAlongLine); 
         }
+       
     }
+        
 }
+
