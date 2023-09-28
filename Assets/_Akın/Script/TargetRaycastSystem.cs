@@ -62,7 +62,6 @@ public class TargetRaycastSystem : MonoBehaviour
     {
         if (counter < dist)
         {
-           
             counter += .1f / lineDrawSpeed;
             float x = Mathf.Lerp(0, dist, counter);
 

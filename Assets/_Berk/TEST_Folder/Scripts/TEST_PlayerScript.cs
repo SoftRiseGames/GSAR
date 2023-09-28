@@ -27,8 +27,8 @@ public class TEST_PlayerScript : MonoBehaviour
     
     private void Move()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");          // Yatay (sol-sað) giriþ deðeri.
-        float verticalInput = Input.GetAxis("Vertical");              // Dikey (ileri-geri) giriþ deðeri.
+        float horizontalInput = Input.GetAxisRaw("Horizontal");          // Yatay (sol-sað) giriþ deðeri.
+        float verticalInput = Input.GetAxisRaw("Vertical");              // Dikey (ileri-geri) giriþ deðeri.
 
         
         // Hareket vektörü ile karakteri ileri, geri, sola veya saða hareket ettirme.
