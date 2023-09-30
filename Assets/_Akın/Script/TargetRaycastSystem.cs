@@ -37,7 +37,7 @@ public class TargetRaycastSystem : MonoBehaviour
             
             pos2 = dedect.transform;
             dist = Vector3.Distance(pos1.position, pos2.position);
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 LineRendererSystem();
             }
@@ -76,7 +76,14 @@ public class TargetRaycastSystem : MonoBehaviour
 
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             lineRenderer.SetPosition(1, pointAlongLine); 
+
+            if(x == dist)
+            {
+                Debug.Log("touch");
+                isGo = false;
+            }
         }
+        
        
     }
         
