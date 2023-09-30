@@ -25,6 +25,7 @@ public class TEST_PlayerScript : MonoBehaviour
         
     }
     
+    
     private void Move()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");          // Yatay (sol-sað) giriþ deðeri.
