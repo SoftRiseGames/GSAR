@@ -219,6 +219,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: af522d668dbcbe242b86b0e6f5f91d48, type: 3}
   m_PrefabInstance: {fileID: 1939228708}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &231202509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231202502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7f18355b86eb45f49bf92c5e15c5d9f7, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &527397592
 GameObject:
   m_ObjectHideFlags: 3
@@ -768,6 +798,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af522d668dbcbe242b86b0e6f5f91d48, type: 3}
       insertIndex: -1
       addedObject: {fileID: 231202507}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af522d668dbcbe242b86b0e6f5f91d48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 231202509}
   m_SourcePrefab: {fileID: 100100000, guid: af522d668dbcbe242b86b0e6f5f91d48, type: 3}
 --- !u!1 &1962972265
 GameObject:

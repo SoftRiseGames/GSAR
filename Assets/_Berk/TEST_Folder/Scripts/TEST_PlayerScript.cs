@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TEST_PlayerScript : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class TEST_PlayerScript : MonoBehaviour
     [SerializeField] private Animator animator;          // Karakter animator
     [SerializeField] private float moveSpeed = 5f;       // Hareket hýzý
     [SerializeField] private float rotationSpeed = 10f;  // Dönüþ hýzý
+    private float horizontalInput, verticalInput;       //Inputsystem üzerinden gelecek vector2 deðerlerinin oyun üzerindekii vector3 position girdileri
 
     
-
+    
     private enum Behaviors {Waiting,Walking,BowUp,BowDown,Roll,Attack}    // Davranýþlarý temsil eden enum 
 
     [SerializeField] private Behaviors behaviors= Behaviors.Waiting;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
-
+    private void Start()
+    {
+          
+    }
     private void Update()
     {
         Move();                      // Karakteri hareket ettiren fonksiyon.
@@ -24,14 +29,16 @@ public class TEST_PlayerScript : MonoBehaviour
         
         
     }
-    
+    private void OnMovement(InputValue movementValue)     //TAMAMLANDI               
+    {
+        //Input System ile movement action map kontrolü
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        horizontalInput=movementVector.x;
+        verticalInput=movementVector.y;
+    }
     
     private void Move()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");          // Yatay (sol-sað) giriþ deðeri.
-        float verticalInput = Input.GetAxisRaw("Vertical");              // Dikey (ileri-geri) giriþ deðeri.
-
-        
         // Hareket vektörü ile karakteri ileri, geri, sola veya saða hareket ettirme.
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized * moveSpeed * Time.deltaTime; 
         rb.MovePosition(rb.position + movement);
@@ -54,24 +61,18 @@ public class TEST_PlayerScript : MonoBehaviour
         {
             behaviors = Behaviors.Roll;
         }
-
-    
-        
-        
-    }
+    }       //TAMAMLANDI
     private void Rotate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");        // Yatay (sol-sað) giriþ deðeri.
-        float verticalInput = Input.GetAxis("Vertical");            // Dikey (ileri-geri) giriþ deðeri.
-
         if (horizontalInput != 0 || verticalInput != 0) 
         {
             // Karakterin yeni dönüþ rotasyonunu hesaplar ve bu rotasyona döndürür.
             Quaternion targetRotation = Quaternion.LookRotation(new Vector3(horizontalInput, 0f, verticalInput)); 
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);  
         }
-    }
+    }     //TAMAMLANDI
     
+   
     private void BowControl()
     {
         
@@ -91,7 +92,7 @@ public class TEST_PlayerScript : MonoBehaviour
         }
 
 
-    }
+    } 
     
     private void SwordControl()
     {
