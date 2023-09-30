@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,15 +13,15 @@ public class TEST_PlayerScript : MonoBehaviour
     [SerializeField] private float rotationSpeed = 10f;  // Dönüþ hýzý
     private float horizontalInput, verticalInput;       //Inputsystem üzerinden gelecek vector2 deðerlerinin oyun üzerindekii vector3 position girdileri
 
+
+    
     
     
     private enum Behaviors {Waiting,Walking,BowUp,BowDown,Roll,Attack}    // Davranýþlarý temsil eden enum 
 
     [SerializeField] private Behaviors behaviors= Behaviors.Waiting;        // Karakterin mevcut davranýþýný temsil eden enum deðiþken
-    private void Start()
-    {
-          
-    }
+    
+
     private void Update()
     {
         Move();                      // Karakteri hareket ettiren fonksiyon.
