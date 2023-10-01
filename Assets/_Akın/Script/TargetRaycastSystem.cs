@@ -13,7 +13,7 @@ public class TargetRaycastSystem : MonoBehaviour
     public Transform pos2;
     private float counter;
     public float dist;
-    public bool isGo;
+    
     [SerializeField] float lineDrawSpeed;
     // Start is called before the first frame update
     void Start()
@@ -39,9 +39,9 @@ public class TargetRaycastSystem : MonoBehaviour
             
             pos2 = dedect.transform;
             dist = Vector3.Distance(pos1.position, pos2.position);
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && characterMovement)
             {
-                LineRendererSystem();
+                LineRendererSystem(); 
             }
         }
         else
@@ -49,8 +49,8 @@ public class TargetRaycastSystem : MonoBehaviour
             pos2 = null;
             counter = 0;
             dist = 0;
-            lineRenderer.enabled = false;
-            isGo = false;
+            
+         
         }
 
         if(pos2 != null)
@@ -63,12 +63,12 @@ public class TargetRaycastSystem : MonoBehaviour
     public void LineRendererSystem()
     {
         lineRenderer.enabled = true;
-        isGo = true;
+        characterMovement = false;
     }
 
     public void LineRendererAnimation()
     {
-        if (counter < dist && isGo == true)
+        if (counter < dist && characterMovement == true)
         {
             
 
@@ -84,9 +84,8 @@ public class TargetRaycastSystem : MonoBehaviour
             if(x == dist)
             {
                 character.transform.DOMove(dedect.transform.position, 1).OnComplete(() => { characterMovement = true; });
-                
                 Debug.Log("touch");
-                isGo = false;
+                
             }
         }
         
