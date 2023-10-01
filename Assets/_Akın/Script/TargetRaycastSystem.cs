@@ -13,7 +13,7 @@ public class TargetRaycastSystem : MonoBehaviour
     public Transform pos2;
     private float counter;
     public float dist;
-    
+    public bool isGo;
     [SerializeField] float lineDrawSpeed;
     // Start is called before the first frame update
     void Start()
@@ -32,16 +32,16 @@ public class TargetRaycastSystem : MonoBehaviour
         //Debug.DrawLine(transform.position, transform.position + transform.up * -50, Color.green);
         lineRenderer.SetPosition(0, pos1.position);
 
-        if (Physics.Raycast(this.transform.position,transform.TransformDirection(Vector3.up)*-1,out dedect,Mathf.Infinity,groundLayer))
+        if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.up) * -1, out dedect, Mathf.Infinity, groundLayer))
         {
             Debug.Log(dedect.collider.name);
-            Debug.DrawRay(transform.position,transform.TransformDirection(Vector3.up)*-1 * dedect.distance, Color.green);
-            
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * -1 * dedect.distance, Color.green);
+
             pos2 = dedect.transform;
             dist = Vector3.Distance(pos1.position, pos2.position);
-            if (Input.GetMouseButtonDown(0) && characterMovement)
+            if (Input.GetMouseButtonDown(0))
             {
-                LineRendererSystem(); 
+                LineRendererSystem();
             }
         }
         else
@@ -49,11 +49,11 @@ public class TargetRaycastSystem : MonoBehaviour
             pos2 = null;
             counter = 0;
             dist = 0;
-            
-         
+            lineRenderer.enabled = false;
+            isGo = false;
         }
 
-        if(pos2 != null)
+        if (pos2 != null)
             LineRendererAnimation();
 
         //Debug.Log(counter);
@@ -63,14 +63,14 @@ public class TargetRaycastSystem : MonoBehaviour
     public void LineRendererSystem()
     {
         lineRenderer.enabled = true;
-        characterMovement = false;
+        isGo = true;
     }
 
     public void LineRendererAnimation()
     {
-        if (counter < dist && characterMovement == true)
+        if (counter < dist && isGo == true)
         {
-            
+
 
             counter += .1f / lineDrawSpeed;
             float x = Mathf.Lerp(0, dist, counter);
@@ -79,18 +79,18 @@ public class TargetRaycastSystem : MonoBehaviour
             Vector3 pointB = pos2.position;
 
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            lineRenderer.SetPosition(1, pointAlongLine); 
+            lineRenderer.SetPosition(1, pointAlongLine);
 
-            if(x == dist)
+            if (x == dist)
             {
                 character.transform.DOMove(dedect.transform.position, 1).OnComplete(() => { characterMovement = true; });
+
                 Debug.Log("touch");
-                
+                isGo = false;
             }
         }
-        
-       
-    }
-        
-}
 
+
+    }
+
+}
