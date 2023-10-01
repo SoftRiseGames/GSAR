@@ -225,6 +225,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  rayDuration: {fileID: 1709362716}
 --- !u!1 &347666816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1530,7 @@ MonoBehaviour:
     m_Bits: 8
   lineRenderer: {fileID: 0}
   character: {fileID: 1317330693}
+  characterMovement: 0
   pos1: {fileID: 394083973}
   pos2: {fileID: 0}
   dist: 0
