@@ -46,7 +46,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Roll"",
                     ""type"": ""Button"",
                     ""id"": ""19ee49ae-8753-42e9-8b80-8fd1dc899ebe"",
                     ""expectedControlType"": ""Button"",
@@ -151,7 +151,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -164,7 +164,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Bow = m_Gameplay.FindAction("Bow", throwIfNotFound: true);
-        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
+        m_Gameplay_Roll = m_Gameplay.FindAction("Roll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -228,14 +228,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Bow;
-    private readonly InputAction m_Gameplay_Dash;
+    private readonly InputAction m_Gameplay_Roll;
     public struct GameplayActions
     {
         private @PlayerInputActions m_Wrapper;
         public GameplayActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Bow => m_Wrapper.m_Gameplay_Bow;
-        public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
+        public InputAction @Roll => m_Wrapper.m_Gameplay_Roll;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -251,9 +251,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Bow.started += instance.OnBow;
             @Bow.performed += instance.OnBow;
             @Bow.canceled += instance.OnBow;
-            @Dash.started += instance.OnDash;
-            @Dash.performed += instance.OnDash;
-            @Dash.canceled += instance.OnDash;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -264,9 +264,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Bow.started -= instance.OnBow;
             @Bow.performed -= instance.OnBow;
             @Bow.canceled -= instance.OnBow;
-            @Dash.started -= instance.OnDash;
-            @Dash.performed -= instance.OnDash;
-            @Dash.canceled -= instance.OnDash;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -288,6 +288,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnBow(InputAction.CallbackContext context);
-        void OnDash(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }

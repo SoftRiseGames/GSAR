@@ -36,7 +36,10 @@ public class TEST_PlayerScript : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         horizontalInput=movementVector.x;
         verticalInput=movementVector.y;
+
+
     }
+    
     
     private void Move()
     {
