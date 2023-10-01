@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class TargetRaycastSystem : MonoBehaviour
 {
     public LayerMask groundLayer;
     public LineRenderer lineRenderer;
     RaycastHit dedect;
+    [SerializeField] GameObject character;
+    public bool characterMovement;
     public Transform pos1;
     public Transform pos2;
     private float counter;
@@ -16,11 +18,11 @@ public class TargetRaycastSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         lineRenderer = pos1.gameObject.GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         counter = 0;
-        lineRenderer.SetPosition(0, pos1.position);
-        
+        characterMovement = true;
     }
 
     // Update is called once per frame
@@ -28,9 +30,9 @@ public class TargetRaycastSystem : MonoBehaviour
     {
 
         //Debug.DrawLine(transform.position, transform.position + transform.up * -50, Color.green);
-        
-        
-        if(Physics.Raycast(this.transform.position,transform.TransformDirection(Vector3.up)*-1,out dedect,Mathf.Infinity,groundLayer))
+        lineRenderer.SetPosition(0, pos1.position);
+
+        if (Physics.Raycast(this.transform.position,transform.TransformDirection(Vector3.up)*-1,out dedect,Mathf.Infinity,groundLayer))
         {
             Debug.Log(dedect.collider.name);
             Debug.DrawRay(transform.position,transform.TransformDirection(Vector3.up)*-1 * dedect.distance, Color.green);
@@ -68,9 +70,11 @@ public class TargetRaycastSystem : MonoBehaviour
     {
         if (counter < dist && isGo == true)
         {
+            
+
             counter += .1f / lineDrawSpeed;
             float x = Mathf.Lerp(0, dist, counter);
-           
+            characterMovement = false;
             Vector3 pointA = pos1.position;
             Vector3 pointB = pos2.position;
 
@@ -79,6 +83,8 @@ public class TargetRaycastSystem : MonoBehaviour
 
             if(x == dist)
             {
+                character.transform.DOMove(dedect.transform.position, 1).OnComplete(() => { characterMovement = true; });
+                
                 Debug.Log("touch");
                 isGo = false;
             }
