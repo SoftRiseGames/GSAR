@@ -3,25 +3,17 @@ namespace BarthaSzabolcs.IsometricAiming
 {
     public class raycastpointerRotation : MonoBehaviour
     {
-        #region Datamembers
-
-        #region Editor Settings
+        
 
         [SerializeField] private LayerMask groundMask;
+        public TargetRaycastSystem rayDuration;
 
-        #endregion
-        #region Private Fields
+        
 
         private Camera mainCamera;
 
-        #endregion
+       
 
-        #endregion
-
-
-        #region Methods
-
-        #region Unity Callbacks
 
         private void Start()
         {
@@ -35,7 +27,6 @@ namespace BarthaSzabolcs.IsometricAiming
             
         }
 
-        #endregion
 
         private void Aim()
         {
@@ -53,7 +44,7 @@ namespace BarthaSzabolcs.IsometricAiming
         {
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
+            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask) && rayDuration.characterMovement)
             {
                 return (success: true, position: hitInfo.point);
             }
@@ -63,6 +54,6 @@ namespace BarthaSzabolcs.IsometricAiming
             }
         }
 
-        #endregion
+        
     }
 }
