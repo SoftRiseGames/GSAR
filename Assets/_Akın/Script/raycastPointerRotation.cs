@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace BarthaSzabolcs.IsometricAiming
 {
     public class raycastpointerRotation : MonoBehaviour
