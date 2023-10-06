@@ -15,9 +15,12 @@ public class GESAR : MonoBehaviour
     // SALDIRI DEÐÝÞKENLERÝ
     private bool isAttacking;                                   // Saldýrý yapýlýp yapýlmadýðýný belirten bool deðiþken
     private bool isBow;                                         // Yay kullanýlýp kullanýlmadýðýný belirten bool deðiþken
+    
+    [SerializeField] private GameObject arrow;
+    [SerializeField] private float arrowSpeed;
 
-    // ANÝMASYON DEÐÝÞKENLERÝ
-    private Animator animator;                                  // Karakter için bir Animator bileþeni
+   // ANÝMASYON DEÐÝÞKENLERÝ
+   private Animator animator;                                  // Karakter için bir Animator bileþeni
     private enum Behaviors { Waiting, Running, Attack, Bow }    // Karakter davranýþlarýný için enum
 
     [SerializeField] private Behaviors behaviors = Behaviors.Waiting; // Baþlangýçta karakterin bekleme durumunda olacaðý davranýþ
@@ -131,6 +134,14 @@ public class GESAR : MonoBehaviour
             // Yay davranýþýný ayarla
             behaviors = Behaviors.Bow;
         }
+        
+    }
+
+    private void Arrow ()
+    {
+        GameObject cloneArrow = Instantiate(arrow, transform.position, transform.rotation);
+        Rigidbody rbArrow = cloneArrow.GetComponent<Rigidbody>();
+        rbArrow.velocity = transform.forward * arrowSpeed;
     }
 
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
