@@ -16,8 +16,7 @@ public class GESAR : MonoBehaviour
     private bool isAttacking;                                   // Saldýrý yapýlýp yapýlmadýðýný belirten bool deðiþken
     private bool isBow;                                         // Yay kullanýlýp kullanýlmadýðýný belirten bool deðiþken
     
-    [SerializeField] private GameObject arrow;
-    [SerializeField] private float arrowSpeed;
+    
 
    // ANÝMASYON DEÐÝÞKENLERÝ
    private Animator animator;                                  // Karakter için bir Animator bileþeni
@@ -137,12 +136,7 @@ public class GESAR : MonoBehaviour
         
     }
 
-    private void Arrow ()
-    {
-        GameObject cloneArrow = Instantiate(arrow, transform.position, transform.rotation);
-        Rigidbody rbArrow = cloneArrow.GetComponent<Rigidbody>();
-        rbArrow.velocity = transform.forward * arrowSpeed;
-    }
+    
 
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
     private void InputActionsControl()
