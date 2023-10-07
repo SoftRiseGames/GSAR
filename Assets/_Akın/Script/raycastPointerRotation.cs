@@ -19,6 +19,7 @@ namespace BarthaSzabolcs.IsometricAiming
         {
             // Cache the camera, Camera.main is an expensive operation.
             mainCamera = Camera.main;
+            
         }
 
         private void Update()

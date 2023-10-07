@@ -1639,7 +1639,8 @@ MonoBehaviour:
   pos1: {fileID: 394083973}
   pos2: {fileID: 0}
   dist: 0
-  lineDrawSpeed: 5
+  isGo: 0
+  lineDrawSpeed: 0.03
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

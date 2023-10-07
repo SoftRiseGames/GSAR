@@ -72,7 +72,7 @@ public class TargetRaycastSystem : MonoBehaviour
         {
 
 
-            counter += .1f / lineDrawSpeed;
+            counter += .1f / lineDrawSpeed*Time.deltaTime;
             float x = Mathf.Lerp(0, dist, counter);
             characterMovement = false;
             Vector3 pointA = pos1.position;
