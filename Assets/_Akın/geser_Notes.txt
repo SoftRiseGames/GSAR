@@ -1,0 +1,1 @@
+düşmanın üzerine tıklandığında düşman hareketi olmayacak
