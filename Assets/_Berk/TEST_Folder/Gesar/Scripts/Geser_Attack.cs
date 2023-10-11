@@ -10,7 +10,10 @@ public class Geser_Attack : MonoBehaviour
     // SALDIRI DEÐÝÞKENLERÝ
     private GesarInput gesarInputAttack;                        // Input Systemin oluþturduðu classtan bir nesne 
     [SerializeField] private bool isAttacking;                  // Saldýrý yapýlýp yapýlmadýðýný belirten bool deðiþken
-
+    private Rigidbody rbAttack;
+    [SerializeField] float attackForce = 10f;                   // Saldýrý kuvveti, istediðiniz deðere ayarlayabilirsiniz
+    
+    
     // ANÝMASYON DEÐÝÞKENLERÝ
     private Animator animatorAttack;                            // Karakter için bir Animator bileþeni
 
@@ -23,6 +26,7 @@ public class Geser_Attack : MonoBehaviour
     private void Start()
     {
         animatorAttack = GetComponent<Animator>(); // Animator bileþenini al
+        rbAttack = GetComponent<Rigidbody>();   //Rigidbody bileþeni al
     }
     private void OnEnable()
     {
@@ -37,6 +41,7 @@ public class Geser_Attack : MonoBehaviour
         AttackAnimations();
         Attack();
     }
+    
 
     //----------------------------ANÝMASYON GECÝKME FONKSÝYONLARI-------------------------------------------//
     private void AttackAnimations()
@@ -44,11 +49,19 @@ public class Geser_Attack : MonoBehaviour
         // Speed parametresine deðeri atayarak blend tree geçiþini kontrol et
         animatorAttack.SetBool("Sword", isAttacking);
     }
+    
 
     //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
-    private void Attack()
+    public void Attack()
     {
+        if (isAttacking == true)
+        {
+            // Saldýrý durumundayken karakteri z ekseni boyunca öne doðru hareket ettirmek için bir kuvvet uygula
+            Vector3 attackDirection = transform.forward; // Karakterin yönüne doðru saldýrý yapmasý için kullanýlan vektör
 
+            // Rigidbody'ye kuvvet uygula
+            rbAttack.AddForce(attackDirection * attackForce, ForceMode.Impulse);
+        }
     }
 
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
