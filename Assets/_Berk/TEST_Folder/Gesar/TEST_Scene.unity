@@ -210,6 +210,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08843054cfac42a4fabdabd2a848d554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 972755375}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08843054cfac42a4fabdabd2a848d554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 972755380}
   m_SourcePrefab: {fileID: 100100000, guid: 08843054cfac42a4fabdabd2a848d554, type: 3}
 --- !u!1 &527397592
 GameObject:
@@ -299,6 +302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &645465369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 807c89460dccfd042b48bbe606a35f04, type: 3}
+  m_PrefabInstance: {fileID: 1334422197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &668509732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -758,7 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
-  attackForce: 20
+  attackForce: 5
 --- !u!114 &972755376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   rotationSpeed: 7
+  isShootingArrow: 0
 --- !u!114 &972755377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +795,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBow: 0
+--- !u!114 &972755380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972755365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7a72c17212dee4f8054fd52f14180f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sword: {fileID: 645465369}
+  bow: {fileID: 919132148866711679}
+  arrow: {fileID: 2089795736}
+  arrowSpeed: 5
 --- !u!4 &1049356656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: 08843054cfac42a4fabdabd2a848d554, type: 3}

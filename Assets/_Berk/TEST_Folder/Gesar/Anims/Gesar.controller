@@ -62,17 +62,17 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -9116006649974301398}
-    m_Position: {x: 280, y: 130, z: 0}
+    m_Position: {x: 490, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2778417158978259893}
     m_Position: {x: 280, y: 290, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -7531953701833849000}
-    m_Position: {x: 280, y: -40, z: 0}
+    m_Position: {x: 280, y: -50, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 4333309615404418486}
-    m_Position: {x: 700, y: 130, z: 0}
+    m_Position: {x: 640, y: -50, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
@@ -277,19 +277,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Sword
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

@@ -15,9 +15,10 @@ public class Geser_Movement : MonoBehaviour
 
     // ANÝMASYON DEÐÝÞKENLERÝ
     private Animator animatorMovement;                          // Karakter için bir Animator bileþeni
-    private float animationSpeed;                               
-   
-    
+    private float animationSpeed;
+
+    [SerializeField] private bool isShootingArrow;
+
     //----------------------------UNITY MONOBEHAVIOR FONKSÝYONLARI-------------------------------------------//
     private void Start()
     {
@@ -39,7 +40,10 @@ public class Geser_Movement : MonoBehaviour
     }
     private void Update()
     {
-        Movement();                  // Hareket fonksiyonunu çaðýr
+        if (!isShootingArrow)
+        {
+            Movement();   // Hareket fonksiyonunu çaðýr
+        }
         Rotate();                    // Rotasyon fonksiyonunu çaðýr
         MovementAnimations();        // Animasyon fonksiyonunu çaðýr
     }
@@ -68,7 +72,7 @@ public class Geser_Movement : MonoBehaviour
         animationSpeed = new Vector2(horizontalInput, verticalInput).magnitude;
 
         
-    }
+    } 
     private void Rotate()
     {
         horizontalInput = inputMovement.x;        // Yatay deðere vector2 x bileþenini ata
@@ -80,6 +84,10 @@ public class Geser_Movement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(new Vector3(horizontalInput, 0f, verticalInput));
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+    public void SetShootingArrow(bool isShooting)
+    {
+        isShootingArrow = isShooting;           // Ok atma durumunu kontrol eden fonksiyon
     }
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
     private void MoveInputActionsControl()
