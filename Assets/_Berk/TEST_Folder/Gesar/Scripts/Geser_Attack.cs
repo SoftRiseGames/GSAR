@@ -10,7 +10,7 @@ public class Geser_Attack : MonoBehaviour
     // SALDIRI DEÐÝÞKENLERÝ
     private GesarInput gesarInputAttack;                        // Input Systemin oluþturduðu classtan bir nesne 
     [SerializeField] private bool isAttacking;                  // Saldýrý yapýlýp yapýlmadýðýný belirten bool deðiþken
-    private Rigidbody rbAttack;
+    private Rigidbody rbAttack;                                 // Karakter rigidbody
     [SerializeField] float attackForce = 10f;                   // Saldýrý kuvveti, istediðiniz deðere ayarlayabilirsiniz
     
     
