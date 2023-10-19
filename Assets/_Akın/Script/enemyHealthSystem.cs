@@ -19,18 +19,18 @@ public class enemyHealthSystem : MonoBehaviour
         character = GameObject.Find("player").GetComponent<CharacterManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
     public int DamageSys(int dmglittle, int dmgbig)
     {
         if (enemybig)
             character.Health = character.Health - dmgbig;
         else if (enemylittle)
             character.Health = character.Health - dmglittle;
+        
         return character.Health;
+
+        //eventsystemde karakterin nerede vurduðunda ne kadar can götüreceðine dair veri baþlýðý
     }
-    public void Damage() => DamageSys(littleEnemyDamage, bigEnemyDamage);
+    public void Damage() => DamageSys(littleEnemyDamage, bigEnemyDamage); // eventsystemde aktif olarak gözükmesi için bir voide atanmasý gerek. Çaðýrýrken damage üzerinden çaðýrýlacak.
 }

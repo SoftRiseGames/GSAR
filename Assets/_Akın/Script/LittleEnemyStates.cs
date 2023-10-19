@@ -9,18 +9,28 @@ public class LittleEnemyStates : StateMachineBehaviour
     public enemyHealthSystem thisEnemy;// düþmana ulaþýcak olan kod
     [SerializeField] float attackRange; // atak mesafesi
     [SerializeField] float attackraneMax; // uzun mesafeli düþmanlar için hareket etme mesafesi
-   
-
-    [SerializeField] float speed; // hareket hýzý
-    bool isMove; // bool
+    [Header("MesafeliDusmanlar")]
+    [SerializeField] float minAttackRange;
+    [SerializeField] float maxAttackRange;
+    [Header("RangedDashPosition")]
+    [SerializeField] GameObject backTransform;
+    [SerializeField] GameObject leftTransform;
+    [SerializeField] GameObject rightTransorm;
     
+    
+    [SerializeField] float speed; // hareket hýzý
+    bool isMove;
+    int random = 0;
+    bool isDash;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.Find("player").transform; 
         rb = animator.GetComponent<Rigidbody>();
         thisEnemy = animator.GetComponent<enemyHealthSystem>();
-        isMove = true;
-     
+        isMove = true; //hareket kontrol boolu
+        backTransform = GameObject.Find("backDashTransform");
+        leftTransform = GameObject.Find("leftDashTransform");
+        rightTransorm = GameObject.Find("rightDashTransform");
     }
 
     
@@ -30,9 +40,7 @@ public class LittleEnemyStates : StateMachineBehaviour
         
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alýnýr
         Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsý
-        
-        if(isMove)
-            rb.MovePosition(newPos); // rigidbody ile gidiþi
+       
         
         // mesafe belli bir alandan küçükse 
         if(thisEnemy.enemybig || thisEnemy.enemylittle)
@@ -42,20 +50,55 @@ public class LittleEnemyStates : StateMachineBehaviour
                 isMove = false;
                 animator.SetTrigger("Attack");
             }
+
+            else // deðilse
+            {
+                isMove = true;
+            }
         }
         else if (thisEnemy.enemydodge)
         {
+            if(Vector2.Distance(player.position,rb.position) > minAttackRange)
+            {
+                isMove = true; //düþmanýn bize saldýrabileceði maksimum attack mesafesi için
+            }
+            else if(Vector2.Distance(player.position, rb.position) < maxAttackRange)
+            {
+               
+                switch (random)
+                {
+                    case 1:
+                        thisEnemy.gameObject.transform.DOMove(backTransform.transform.position, .1f);
+                        break;
+                    case 2:
+                        thisEnemy.gameObject.transform.DOMove(rightTransorm.transform.position, .1f);
+                        break;
+                    case 3:
+                        thisEnemy.gameObject.transform.DOMove(leftTransform.transform.position, .1f);
+                        break;
+                }
 
+                isDash = true;
+                if (isDash)
+                {
+                    randomSystem(1, 4);
+                }
+                Debug.Log(random);
+            }
         }
-        
-        else // deðilse
-        {
-            isMove = true;
-        }
-     // not: ismove boolunu açmamýn sebebi dýþardan kontrol edilebilirliði daha rahat bir hale getirmek. Þu anki ilk halinde gerek olmassa da 
-     // düþman için bir manajer açtýðýmýzda çok daha kolay olacak.
+
+        if (isMove)
+            rb.MovePosition(newPos); // rigidbody ile gidiþi
+
+        // not: ismove boolunu açmamýn sebebi dýþardan kontrol edilebilirliði daha rahat bir hale getirmek. Þu anki ilk halinde gerek olmassa da 
+        // düþman için bir manajer açtýðýmýzda çok daha kolay olacak.
     }
-
+    public int randomSystem(int x, int y)
+    {
+        isDash = false;
+        random = Random.Range(x, y);
+        return random;
+    }
    
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

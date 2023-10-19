@@ -170,7 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8921f527b839ee04e88b829293a6da72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisEnemy: {fileID: 0}
   attackRange: 2
+  attackraneMax: 0
+  minAttackRange: 20
+  maxAttackRange: 3
   speed: 5
 --- !u!1102 &1438683672312635471
 AnimatorState:
