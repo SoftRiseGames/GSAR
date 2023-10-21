@@ -6,9 +6,11 @@ public class enemyHealthSystem : MonoBehaviour
 {
     public CharacterManager character;
     public GameObject player;
+    
     [Header("healthVeriables")]
     [SerializeField] int littleEnemyDamage;
     [SerializeField] int bigEnemyDamage;
+    
     [Header("HealthTypes")]
     public enemyTypes enemyType;
    
