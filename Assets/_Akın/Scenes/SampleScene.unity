@@ -1042,9 +1042,7 @@ MonoBehaviour:
   player: {fileID: 0}
   littleEnemyDamage: 3
   bigEnemyDamage: 5
-  enemybig: 0
-  enemylittle: 0
-  enemydodge: 1
+  enemyType: 3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

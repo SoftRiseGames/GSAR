@@ -10,10 +10,8 @@ public class enemyHealthSystem : MonoBehaviour
     [SerializeField] int littleEnemyDamage;
     [SerializeField] int bigEnemyDamage;
     [Header("HealthTypes")]
-    public bool enemybig;
-    public bool enemylittle;
-    public bool enemydodge;
-
+    public enemyTypes enemyType;
+   
     void Start()
     {
         character = GameObject.Find("player").GetComponent<CharacterManager>();
@@ -23,9 +21,9 @@ public class enemyHealthSystem : MonoBehaviour
     
     public int DamageSys(int dmglittle, int dmgbig)
     {
-        if (enemybig)
+        if (enemyType == enemyTypes.BigEnemy)
             character.Health = character.Health - dmgbig;
-        else if (enemylittle)
+        else if (enemyType == enemyTypes.littleEnemy)
             character.Health = character.Health - dmglittle;
         
         return character.Health;
@@ -33,4 +31,11 @@ public class enemyHealthSystem : MonoBehaviour
         //eventsystemde karakterin nerede vurduðunda ne kadar can götüreceðine dair veri baþlýðý
     }
     public void Damage() => DamageSys(littleEnemyDamage, bigEnemyDamage); // eventsystemde aktif olarak gözükmesi için bir voide atanmasý gerek. Çaðýrýrken damage üzerinden çaðýrýlacak.
+}
+public enum enemyTypes
+{
+    Defult = 0,
+    littleEnemy,
+    BigEnemy,
+    rangedEnemy
 }

@@ -43,7 +43,7 @@ public class LittleEnemyStates : StateMachineBehaviour
        
         
         // mesafe belli bir alandan küçükse 
-        if(thisEnemy.enemybig || thisEnemy.enemylittle)
+        if(thisEnemy.enemyType == enemyTypes.BigEnemy || thisEnemy.enemyType == enemyTypes.littleEnemy)
         {
             if (Vector3.Distance(player.position, rb.position) <= attackRange)
             {
@@ -56,7 +56,7 @@ public class LittleEnemyStates : StateMachineBehaviour
                 isMove = true;
             }
         }
-        else if (thisEnemy.enemydodge)
+        else if (thisEnemy.enemyType == enemyTypes.rangedEnemy)
         {
             if(Vector2.Distance(player.position,rb.position) > minAttackRange)
             {
