@@ -969,7 +969,7 @@ Transform:
   m_GameObject: {fileID: 893630115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.63, y: 0.82, z: -2.93}
+  m_LocalPosition: {x: 12.56, y: 0.82, z: 1.93}
   m_LocalScale: {x: 1, y: 1.4251677, z: 1.2342266}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1040,9 +1040,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   player: {fileID: 0}
+  enemyStates: {fileID: 0}
   littleEnemyDamage: 3
   bigEnemyDamage: 5
-  enemyType: 1
+  enemyType: 3
+  isDashCooldown: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

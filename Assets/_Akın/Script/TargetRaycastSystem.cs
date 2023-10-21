@@ -34,7 +34,7 @@ public class TargetRaycastSystem : MonoBehaviour
 
         if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.up) * -1, out dedect, Mathf.Infinity, groundLayer))
         {
-            Debug.Log(dedect.collider.name);
+          
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * -1 * dedect.distance, Color.green);
 
             pos2 = dedect.transform;
@@ -57,7 +57,7 @@ public class TargetRaycastSystem : MonoBehaviour
             LineRendererAnimation();
 
         //Debug.Log(counter);
-        Debug.Log(lineDrawSpeed);
+
 
     }
     public void LineRendererSystem()
