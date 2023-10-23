@@ -38,6 +38,9 @@ public class enemyHealthSystem : MonoBehaviour
         isDashCooldown = true;
 
     }
+
+
+
     public void Damage() => DamageSys(littleEnemyDamage, bigEnemyDamage); // eventsystemde aktif olarak gözükmesi için bir voide atanmasý gerek. Çaðýrýrken damage üzerinden çaðýrýlacak.
     public void DashCooldown() => StartCoroutine(wait());
 }
