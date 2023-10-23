@@ -3,31 +3,20 @@ namespace BarthaSzabolcs.IsometricAiming
 {
     public class raycastpointerRotation : MonoBehaviour
     {
-        
-
         [SerializeField] private LayerMask groundMask;
         public TargetRaycastSystem rayDuration;
 
-        
-
         private Camera mainCamera;
-
-       
-
 
         private void Start()
         {
-            // Cache the camera, Camera.main is an expensive operation.
             mainCamera = Camera.main;
-            
         }
 
         private void Update()
         {
             Aim();
-            
         }
-
 
         private void Aim()
         {
@@ -54,7 +43,5 @@ namespace BarthaSzabolcs.IsometricAiming
                 return (success: false, position: Vector3.zero);
             }
         }
-
-        
     }
 }

@@ -40,6 +40,7 @@ public class LittleEnemyStates : StateMachineBehaviour
         
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alýnýr
         Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsý
+        thisEnemy.gameObject.transform.LookAt(player);
 
         if (thisEnemy.isDashCooldown)
             isDash = true; 

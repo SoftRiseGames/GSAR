@@ -173,12 +173,11 @@ MonoBehaviour:
   thisEnemy: {fileID: 0}
   attackRange: 2
   DashRange: 3
-  MoveRange: 14
+  MoveRange: 0
   backTransform: {fileID: 0}
   leftTransform: {fileID: 0}
   rightTransorm: {fileID: 0}
   speed: 5
-  isdashCooldown: 0
 --- !u!1102 &1438683672312635471
 AnimatorState:
   serializedVersion: 6
