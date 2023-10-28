@@ -7,75 +7,76 @@ using UnityEngine.InputSystem;
 
 public class Geser_Attack : MonoBehaviour
 {
-    // SALDIRI DEÐÝÞKENLERÝ
-    private GesarInput gesarInputAttack;                        // Input Systemin oluþturduðu classtan bir nesne 
-    [SerializeField] private bool isAttacking;                  // Saldýrý yapýlýp yapýlmadýðýný belirten bool deðiþken
+    // SALDIRI DEÄžÄ°ÅžKENLERÄ°
+    private GesarInput gesarInputAttack;                        // Input Systemin oluÅŸturduÄŸu classtan bir nesne 
+    [SerializeField] private bool isAttacking;                  // SaldÄ±rÄ± yapÄ±lÄ±p yapÄ±lmadÄ±ÄŸÄ±nÄ± belirten bool deÄŸiÅŸken
     private Rigidbody rbAttack;                                 // Karakter rigidbody
-    [SerializeField] float attackForce = 10f;                   // Saldýrý kuvveti, istediðiniz deðere ayarlayabilirsiniz
+    [SerializeField] float attackForce = 10f;                   // SaldÄ±rÄ± kuvveti, istediÄŸiniz deÄŸere ayarlayabilirsiniz
+
     
     
-    // ANÝMASYON DEÐÝÞKENLERÝ
-    private Animator animatorAttack;                            // Karakter için bir Animator bileþeni
+    // ANÄ°MASYON DEÄžÄ°ÅžKENLERÄ°
+    private Animator animatorAttack;                            // Karakter iÃ§in bir Animator bileÅŸeni
 
 
-    //----------------------------UNITY MONOBEHAVIOR FONKSÝYONLARI-------------------------------------------//
+    //----------------------------UNITY MONOBEHAVIOR FONKSÄ°YONLARI-------------------------------------------//
     private void Awake()
     {
-        AttackInputActionsControl();    // Input System kontrollerini baþlat
+        AttackInputActionsControl();    // Input System kontrollerini baÅŸlat
+        
     }
     private void Start()
     {
-        animatorAttack = GetComponent<Animator>(); // Animator bileþenini al
-        rbAttack = GetComponent<Rigidbody>();   //Rigidbody bileþeni al
+        animatorAttack = GetComponent<Animator>(); // Animator bileÅŸenini al
+        rbAttack = GetComponent<Rigidbody>();   //Rigidbody bileÅŸeni al
     }
     private void OnEnable()
     {
-        gesarInputAttack.Gameplay.Enable(); // Gameplay action map'ini etkinleþtir
+        gesarInputAttack.Gameplay.Enable(); // Gameplay action map'ini etkinleÅŸtir
     }
     private void OnDisable()
     {
-        gesarInputAttack.Gameplay.Disable(); // Gameplay action map'ini devre dýþý býrak
+        gesarInputAttack.Gameplay.Disable(); // Gameplay action map'ini devre dÄ±ÅŸÄ± bÄ±rak
     }
     private void Update()
     {
         AttackAnimations();
-        Attack();
+        //Attack();
     }
     
 
-    //----------------------------ANÝMASYON GECÝKME FONKSÝYONLARI-------------------------------------------//
+    //----------------------------ANÄ°MASYON GECÄ°KME FONKSÄ°YONLARI-------------------------------------------//
     private void AttackAnimations()
     {
-        // Speed parametresine deðeri atayarak blend tree geçiþini kontrol et
+        // Speed parametresine deÄŸeri atayarak blend tree geÃ§iÅŸini kontrol et
         animatorAttack.SetBool("Sword", isAttacking);
     }
     
 
-    //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
+    //---------------------------- MEKANÄ°K FONKSÄ°YONLAR-------------------------------------------//
     public void Attack()
     {
-        if (isAttacking == true)
-        {
-            // Saldýrý durumundayken karakteri z ekseni boyunca öne doðru hareket ettirmek için bir kuvvet uygula
-            Vector3 attackDirection = transform.forward; // Karakterin yönüne doðru saldýrý yapmasý için kullanýlan vektör
+            // SaldÄ±rÄ± durumundayken karakteri z ekseni boyunca Ã¶ne doÄŸru hareket ettirmek iÃ§in bir kuvvet uygula
+            Vector3 attackDirection = transform.forward; // Karakterin yÃ¶nÃ¼ne doÄŸru saldÄ±rÄ± yapmasÄ± iÃ§in kullanÄ±lan vektÃ¶r
 
             // Rigidbody'ye kuvvet uygula
             rbAttack.AddForce(attackDirection * attackForce, ForceMode.Impulse);
-        }
+        
     }
 
-    //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
+    //----------------------------INPUT SYSTEM FONKSÄ°YONLAR-------------------------------------------//
     private void AttackInputActionsControl()
     {
-        gesarInputAttack = new GesarInput(); // GesarInput nesnesini oluþtur
+        gesarInputAttack = new GesarInput(); // GesarInput nesnesini oluÅŸtur
 
-        // Saldýrý girdilerini kontrol et
+        // SaldÄ±rÄ± girdilerini kontrol et
         gesarInputAttack.Gameplay.Attack.started += InputAttack;
         gesarInputAttack.Gameplay.Attack.canceled += InputAttack;
 
     }
     private void InputAttack(InputAction.CallbackContext context)
     {
-        isAttacking = context.ReadValueAsButton(); // Saldýrý girdilerini al
+        isAttacking = context.ReadValueAsButton(); // SaldÄ±rÄ± girdilerini al
+        
     }
 }

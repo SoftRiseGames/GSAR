@@ -10,6 +10,8 @@ public class Geser_RangedAttack : MonoBehaviour
     private GesarInput gesarInputRanged;            // Input Systemin oluþturduðu classtan bir nesne 
     [SerializeField] private bool isBow;            
     
+    Geser_StateSystem stateSystem;
+
     // ANÝMASYON DEÐÝÞKENLERÝ
     private Animator animatorRanged;
 
@@ -24,6 +26,7 @@ public class Geser_RangedAttack : MonoBehaviour
     private void Awake()
     {
         RangedInputActionsControl();
+        stateSystem = GetComponent<Geser_StateSystem>();
     }
     private void OnEnable()
     {
@@ -36,22 +39,25 @@ public class Geser_RangedAttack : MonoBehaviour
     private void Update()
     {
         MovementAnimations();
-        Bow();
+        
     }
 
     //----------------------------ANÝMASYON GECÝKME FONKSÝYONLARI-------------------------------------------//
     private void MovementAnimations()
     {
-        // Speed parametresine deðeri atayarak blend tree geçiþini kontrol et
-        animatorRanged.SetBool("Bow", isBow);
+        if(stateSystem.currentState== Geser_StateSystem.AnimState.BowReady)
+        {
+            animatorRanged.SetBool("Bow", isBow);
+        }
+        else if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordReady)
+        {
+            animatorRanged.SetBool("Bow", false);
+        }
+        
     }
 
     //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
-    private void Bow()
-    {
-        // Ok atma durumunu Geser_Movement scriptinde ayarla
-        geserMovement.SetShootingArrow(isBow);
-    }
+    
 
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
     private void RangedInputActionsControl()
@@ -60,11 +66,18 @@ public class Geser_RangedAttack : MonoBehaviour
 
         // Yay girdilerini kontrol et
         gesarInputRanged.Gameplay.Bow.performed += InputBow;
-        gesarInputRanged.Gameplay.Bow.canceled += InputBow;
+        gesarInputRanged.Gameplay.Bow.canceled += DeInputBow;
     }
     private void InputBow(InputAction.CallbackContext context)
     {
         isBow = context.ReadValueAsButton(); // Yay girdilerini al
+        stateSystem.currentState = Geser_StateSystem.AnimState.BowReady;
     }
+    private void DeInputBow(InputAction.CallbackContext context)
+    {
+        
+        stateSystem.currentState = Geser_StateSystem.AnimState.SwordReady;
+    }
+
 
 }

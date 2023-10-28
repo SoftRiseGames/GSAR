@@ -4,22 +4,22 @@ using UnityEngine;
 using DG.Tweening;
 public class LittleEnemyStates : StateMachineBehaviour
 {
-    Transform player; // karakter pozisyon erişimiiçin kullanılır   
-    Rigidbody rb; //rigidbody erişimi
-    public enemyHealthSystem thisEnemy;// düşmana ulaşıcak olan kod
+    Transform player; // karakter pozisyon eriÅŸimiiÃ§in kullanÄ±lÄ±r   
+    Rigidbody rb; //rigidbody eriÅŸimi
+    public enemyHealthSystem thisEnemy;// dÃ¼ÅŸmana ulaÅŸÄ±cak olan kod
     [SerializeField] float attackRange; // atak mesafesi
     [Header("MesafeliDusmanlar")]
-    [SerializeField] float DashRange; // mesafeli düşmanlar için ışınlanma mesafesi
-    [SerializeField] float MoveRange; // mesafeli düşmanlar için maksimum vurma mesafesi
+    [SerializeField] float DashRange; // mesafeli dÃ¼ÅŸmanlar iÃ§in Ä±ÅŸÄ±nlanma mesafesi
+    [SerializeField] float MoveRange; // mesafeli dÃ¼ÅŸmanlar iÃ§in maksimum vurma mesafesi
     [Header("RangedDashPosition")]
-    [SerializeField] GameObject backTransform; // arkaya atılacak transform noktası
-    [SerializeField] GameObject leftTransform; // sola gidilecek dash noktası
-    [SerializeField] GameObject rightTransorm; //sağa gidilecek dash noktası
+    [SerializeField] GameObject backTransform; // arkaya atÄ±lacak transform noktasÄ±
+    [SerializeField] GameObject leftTransform; // sola gidilecek dash noktasÄ±
+    [SerializeField] GameObject rightTransorm; //saÄŸa gidilecek dash noktasÄ±
     
     
-    [SerializeField] float speed; // hareket hızı
-    bool isMove; // karakter yürüyüp yürümemeyi kontrol etme
-    int random = 0; // yön seçerken random bir index seçme
+    [SerializeField] float speed; // hareket hÄ±zÄ±
+    bool isMove; // karakter yÃ¼rÃ¼yÃ¼p yÃ¼rÃ¼memeyi kontrol etme
+    int random = 0; // yÃ¶n seÃ§erken random bir index seÃ§me
     bool isDash = true; // dash atarkenki bool
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -38,45 +38,45 @@ public class LittleEnemyStates : StateMachineBehaviour
     {
         Debug.Log(Vector3.Distance(player.position, rb.position));
         
-        Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alınır
-        Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsı
+        Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alÄ±nÄ±r
+        Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsÄ±
         thisEnemy.gameObject.transform.LookAt(player);
 
         if (thisEnemy.isDashCooldown)
             isDash = true; 
         else if (!thisEnemy.isDashCooldown)
             isDash = false;
-        //burada düşmanın cooldown verisine göre isDash boolunu kapatıp açar. not: Optimize edilecek.
+        //burada dÃ¼ÅŸmanÄ±n cooldown verisine gÃ¶re isDash boolunu kapatÄ±p aÃ§ar. not: Optimize edilecek.
        
        
-        if (thisEnemy.enemyType == enemyTypes.BigEnemy || thisEnemy.enemyType == enemyTypes.littleEnemy) //Karakterin kendi scriptindeki enum tipine göre davranış sergiler.
+        if (thisEnemy.enemyType == enemyTypes.BigEnemy || thisEnemy.enemyType == enemyTypes.littleEnemy) //Karakterin kendi scriptindeki enum tipine gÃ¶re davranÄ±ÅŸ sergiler.
         {
-            // bu kısım küçük ve büyük düşmanlar için
+            // bu kÄ±sÄ±m kÃ¼Ã§Ã¼k ve bÃ¼yÃ¼k dÃ¼ÅŸmanlar iÃ§in
             if (Vector3.Distance(player.position, rb.position) <= attackRange) // karakter belli bir mesafedeyse
             {
                 isMove = false;
                 animator.SetTrigger("Attack");
             }
 
-            else // değilse
+            else // deÄŸilse
             {
                 isMove = true;
             }
         }
-        else if (thisEnemy.enemyType == enemyTypes.rangedEnemy) // mesafeli düşmanlar için
+        else if (thisEnemy.enemyType == enemyTypes.rangedEnemy) // mesafeli dÃ¼ÅŸmanlar iÃ§in
         {
-            if(Vector3.Distance(player.position,rb.position) > MoveRange) // belli bir mesafeden fazlaysa yürü
+            if(Vector3.Distance(player.position,rb.position) > MoveRange) // belli bir mesafeden fazlaysa yÃ¼rÃ¼
             {
                 Debug.Log("a");
-                isMove = true; //düşmanın bize saldırabileceği maksimum attack mesafesi için
+                isMove = true; //dÃ¼ÅŸmanÄ±n bize saldÄ±rabileceÄŸi maksimum attack mesafesi iÃ§in
             }
-            else if(Vector3.Distance(player.position, rb.position) > DashRange && Vector3.Distance(player.position, rb.position) < MoveRange) // dash mesafesi ile move mesafesi arasındaysa yürümeyi kes ve saldır.
+            else if(Vector3.Distance(player.position, rb.position) > DashRange && Vector3.Distance(player.position, rb.position) < MoveRange) // dash mesafesi ile move mesafesi arasÄ±ndaysa yÃ¼rÃ¼meyi kes ve saldÄ±r.
             {
                 isMove = false;
                 Debug.Log("attack");
             }
             
-            if(Vector3.Distance(player.position, rb.position) < DashRange) // Belli bir mesafenin altındaysa dash at
+            if(Vector3.Distance(player.position, rb.position) < DashRange) // Belli bir mesafenin altÄ±ndaysa dash at
             {
                
                 if (isDash) 
@@ -86,7 +86,7 @@ public class LittleEnemyStates : StateMachineBehaviour
                    thisEnemy.DashCooldown();
                 }
                 
-                switch (random) // randomdan çıkan değere göre dash atılacak noktayı seç
+                switch (random) // randomdan Ã§Ä±kan deÄŸere gÃ¶re dash atÄ±lacak noktayÄ± seÃ§
                 {
                     case 1:
                         thisEnemy.gameObject.transform.DOMove(backTransform.transform.position, .1f);
@@ -102,13 +102,13 @@ public class LittleEnemyStates : StateMachineBehaviour
         }
 
         if (isMove)
-            rb.MovePosition(newPos); // rigidbody ile gidişi
+            rb.MovePosition(newPos); // rigidbody ile gidiÅŸi
 
-        // not: ismove boolunu açmamın sebebi dışardan kontrol edilebilirliği daha rahat bir hale getirmek. Şu anki ilk halinde gerek olmassa da 
-        // düşman için bir manajer açtığımızda çok daha kolay olacak.
+        // not: ismove boolunu aÃ§mamÄ±n sebebi dÄ±ÅŸardan kontrol edilebilirliÄŸi daha rahat bir hale getirmek. Åu anki ilk halinde gerek olmassa da 
+        // dÃ¼ÅŸman iÃ§in bir manajer aÃ§tÄ±ÄŸÄ±mÄ±zda Ã§ok daha kolay olacak.
     }
 
-    public int randomSystem(int x, int y) //randoma göre dash atılacak mesafeyi seç
+    public int randomSystem(int x, int y) //randoma gÃ¶re dash atÄ±lacak mesafeyi seÃ§
     {
         isDash = false;
         random = Random.Range(x, y);

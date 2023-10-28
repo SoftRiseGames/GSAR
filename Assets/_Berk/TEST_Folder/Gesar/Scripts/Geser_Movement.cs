@@ -8,16 +8,18 @@ public class Geser_Movement : MonoBehaviour
 {
     // HAREKET DEÐÝÞKENLERÝ
     private GesarInput gesarInputMovement;                      // Input Systemin oluþturduðu classtan bir nesne 
-    private Vector2 inputMovement;                              // InputSystemden alýnacak vector2 deðiþkeni atayacaðýmýz deðiþken
+    private Vector2 inputMovement,inputRotate;                  // InputSystemden alýnacak vector2 deðiþkeni atayacaðýmýz deðiþken
     private float horizontalInput, verticalInput;               // Vector2 deðiþkenin x ve y deðerlerini atayacaðýmýz Yatay ve dikey girdileri
     [SerializeField] private float moveSpeed, rotationSpeed;    // Hareket hýzý ve dönüþ hýzý
     private Rigidbody rb;                                       // Karakterin Rigidbody bileþeni
+
+    Geser_StateSystem stateSystem;
 
     // ANÝMASYON DEÐÝÞKENLERÝ
     private Animator animatorMovement;                          // Karakter için bir Animator bileþeni
     private float animationSpeed;
 
-    [SerializeField] private bool isShootingArrow;
+    
 
     //----------------------------UNITY MONOBEHAVIOR FONKSÝYONLARI-------------------------------------------//
     private void Start()
@@ -28,6 +30,7 @@ public class Geser_Movement : MonoBehaviour
     private void Awake()
     {
         MoveInputActionsControl(); // Input System kontrollerini baþlat
+        stateSystem= GetComponent<Geser_StateSystem>();
     }
     private void OnEnable()
     {
@@ -40,38 +43,49 @@ public class Geser_Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (!isShootingArrow)
-        {
-            Movement();   // Hareket fonksiyonunu çaðýr
-        }
+        Movement();   // Hareket fonksiyonunu çaðýr
         Rotate();                    // Rotasyon fonksiyonunu çaðýr
         MovementAnimations();        // Animasyon fonksiyonunu çaðýr
+
+        
     }
 
     //----------------------------ANÝMASYON GECÝKME FONKSÝYONLARI-------------------------------------------//
     private void MovementAnimations()
     {
-        // Speed parametresine deðeri atayarak blend tree geçiþini kontrol et
-        animatorMovement.SetFloat("Speed", animationSpeed);
+        
+        if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordWalk)
+        {
+            // Speed parametresine deðeri atayarak blend tree geçiþini kontrol et
+            animatorMovement.SetFloat("Speed", animationSpeed);
+        }
+        else if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordReady)
+        {
+            
+            animatorMovement.SetFloat("Speed", 0);
+        }
+        
     }
 
     //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
     private void Movement()
     {
-        horizontalInput = inputMovement.x;        // Yatay deðere vector2 x bileþenini ata
-        verticalInput = inputMovement.y;          // Dikey deðere vector2 y bileþenini ata
-        
-        if (horizontalInput != 0 || verticalInput != 0)
+        if(stateSystem.currentState == Geser_StateSystem.AnimState.SwordWalk)
         {
-            // Hareket vektörü ile karakteri ileri, geri, sola veya saða hareket ettir
-            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * moveSpeed * Time.deltaTime;
-            rb.MovePosition(rb.position + movement);
+            horizontalInput = inputMovement.x;        // Yatay deðere vector2 x bileþenini ata
+            verticalInput = inputMovement.y;          // Dikey deðere vector2 y bileþenini ata
+
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                // Hareket vektörü ile karakteri ileri, geri, sola veya saða hareket ettir
+                Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * moveSpeed * Time.deltaTime;
+                rb.MovePosition(rb.position + movement);
+            }
+
+            // Hareket vektörünün büyüklüðünü kullanarak hýzý hesapla (x ve z bileþenleri)
+            animationSpeed = new Vector2(horizontalInput, verticalInput).magnitude;
         }
-
-        // Hareket vektörünün büyüklüðünü kullanarak hýzý hesapla (x ve z bileþenleri)
-        animationSpeed = new Vector2(horizontalInput, verticalInput).magnitude;
-
-        
+            
     } 
     private void Rotate()
     {
@@ -85,10 +99,8 @@ public class Geser_Movement : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
-    public void SetShootingArrow(bool isShooting)
-    {
-        isShootingArrow = isShooting;           // Ok atma durumunu kontrol eden fonksiyon
-    }
+    
+    
     //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
     private void MoveInputActionsControl()
     {
@@ -97,14 +109,20 @@ public class Geser_Movement : MonoBehaviour
         // Hareket girdilerini kontrol et
         gesarInputMovement.Gameplay.Movement.started += InputMove;
         gesarInputMovement.Gameplay.Movement.performed += InputMove;
-        gesarInputMovement.Gameplay.Movement.canceled += InputMove;
+        gesarInputMovement.Gameplay.Movement.canceled += DeInputMove;
 
     }
 
     private void InputMove(InputAction.CallbackContext context)
     {
         inputMovement = context.ReadValue<Vector2>(); // Hareket girdilerini al
+        stateSystem.currentState = Geser_StateSystem.AnimState.SwordWalk;
 
     }
-
+    private void DeInputMove(InputAction.CallbackContext context)
+    {
+        inputMovement = context.ReadValue<Vector2>();
+        stateSystem.currentState = Geser_StateSystem.AnimState.SwordReady;
+    }
+    
 }
