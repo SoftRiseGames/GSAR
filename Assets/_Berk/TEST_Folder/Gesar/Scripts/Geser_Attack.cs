@@ -13,8 +13,8 @@ public class Geser_Attack : MonoBehaviour
     private Rigidbody rbAttack;                                 // Karakter rigidbody
     [SerializeField] float attackForce = 10f;                   // Saldırı kuvveti, istediğiniz değere ayarlayabilirsiniz
 
-    
-    
+    Geser_StateSystem stateSystem;
+
     // ANİMASYON DEĞİŞKENLERİ
     private Animator animatorAttack;                            // Karakter için bir Animator bileşeni
 
@@ -23,7 +23,7 @@ public class Geser_Attack : MonoBehaviour
     private void Awake()
     {
         AttackInputActionsControl();    // Input System kontrollerini başlat
-        
+        stateSystem = GetComponent<Geser_StateSystem>();
     }
     private void Start()
     {
@@ -48,8 +48,16 @@ public class Geser_Attack : MonoBehaviour
     //----------------------------ANİMASYON GECİKME FONKSİYONLARI-------------------------------------------//
     private void AttackAnimations()
     {
-        // Speed parametresine değeri atayarak blend tree geçişini kontrol et
-        animatorAttack.SetBool("Sword", isAttacking);
+        if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordAttack)
+        {
+            // Speed parametresine değeri atayarak blend tree geçişini kontrol et
+            animatorAttack.SetBool("Sword", isAttacking);
+        }
+        else
+        {
+            animatorAttack.SetBool("Sword", false);
+        }
+        
     }
     
 
@@ -71,12 +79,17 @@ public class Geser_Attack : MonoBehaviour
 
         // Saldırı girdilerini kontrol et
         gesarInputAttack.Gameplay.Attack.started += InputAttack;
-        gesarInputAttack.Gameplay.Attack.canceled += InputAttack;
+        gesarInputAttack.Gameplay.Attack.canceled += DeInputAttack;
 
     }
     private void InputAttack(InputAction.CallbackContext context)
     {
         isAttacking = context.ReadValueAsButton(); // Saldırı girdilerini al
+        stateSystem.currentState = Geser_StateSystem.AnimState.SwordAttack;
+    }
+    private void DeInputAttack(InputAction.CallbackContext context)
+    {
+        stateSystem.currentState = Geser_StateSystem.AnimState.SwordReady;
         
     }
 }

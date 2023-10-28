@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -70,7 +68,7 @@ public class Geser_Movement : MonoBehaviour
     //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
     private void Movement()
     {
-        if(stateSystem.currentState == Geser_StateSystem.AnimState.SwordWalk)
+        if(stateSystem.currentState == Geser_StateSystem.AnimState.SwordWalk )
         {
             horizontalInput = inputMovement.x;        // Yatay deðere vector2 x bileþenini ata
             verticalInput = inputMovement.y;          // Dikey deðere vector2 y bileþenini ata
@@ -81,6 +79,7 @@ public class Geser_Movement : MonoBehaviour
                 Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * moveSpeed * Time.deltaTime;
                 rb.MovePosition(rb.position + movement);
             }
+            
 
             // Hareket vektörünün büyüklüðünü kullanarak hýzý hesapla (x ve z bileþenleri)
             animationSpeed = new Vector2(horizontalInput, verticalInput).magnitude;
@@ -111,6 +110,8 @@ public class Geser_Movement : MonoBehaviour
         gesarInputMovement.Gameplay.Movement.performed += InputMove;
         gesarInputMovement.Gameplay.Movement.canceled += DeInputMove;
 
+        
+
     }
 
     private void InputMove(InputAction.CallbackContext context)
@@ -119,9 +120,9 @@ public class Geser_Movement : MonoBehaviour
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordWalk;
 
     }
+    
     private void DeInputMove(InputAction.CallbackContext context)
     {
-        inputMovement = context.ReadValue<Vector2>();
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordReady;
     }
     

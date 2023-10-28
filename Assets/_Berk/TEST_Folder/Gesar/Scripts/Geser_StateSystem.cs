@@ -9,7 +9,7 @@ public class Geser_StateSystem : MonoBehaviour
         SwordWalk,
         SwordAttack,
         BowReady,
-        BowAttack
+        
     }
     public AnimState currentState = AnimState.SwordReady;
 
@@ -33,9 +33,7 @@ public class Geser_StateSystem : MonoBehaviour
             case AnimState.SwordWalk:
                 stateText.text = "Sword Walk";
                 break;
-            case AnimState.BowAttack:
-                stateText.text = "Bow Attack";
-                break;
+
             case AnimState.SwordAttack:
                 stateText.text = "SwordAttack";
                 break;
