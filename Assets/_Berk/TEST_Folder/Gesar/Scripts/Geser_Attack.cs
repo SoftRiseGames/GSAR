@@ -13,7 +13,7 @@ public class Geser_Attack : MonoBehaviour
     private Rigidbody rbAttack;                                 // Karakter rigidbody
     [SerializeField] float attackForce = 10f;                   // Saldırı kuvveti, istediğiniz değere ayarlayabilirsiniz
 
-    Geser_StateSystem stateSystem;
+    private Geser_StateSystem stateSystem;
 
     // ANİMASYON DEĞİŞKENLERİ
     private Animator animatorAttack;                            // Karakter için bir Animator bileşeni
