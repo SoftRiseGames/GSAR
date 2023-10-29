@@ -14,10 +14,12 @@ public class Geser_Attack : MonoBehaviour
     [SerializeField] float attackForce = 10f;                   // Saldırı kuvveti, istediğiniz değere ayarlayabilirsiniz
 
     private Geser_StateSystem stateSystem;
-
+    public Transform attackPoint;
+    public float AttackRange;
+    public LayerMask enemyLayer;
     // ANİMASYON DEĞİŞKENLERİ
     private Animator animatorAttack;                            // Karakter için bir Animator bileşeni
-
+    Collider2D[] hitenemies;
 
     //----------------------------UNITY MONOBEHAVIOR FONKSİYONLARI-------------------------------------------//
     private void Awake()
@@ -27,6 +29,7 @@ public class Geser_Attack : MonoBehaviour
     }
     private void Start()
     {
+        hitenemies = Physics2D.OverlapCircleAll(attackPoint.position, AttackRange, enemyLayer);
         animatorAttack = GetComponent<Animator>(); // Animator bileşenini al
         rbAttack = GetComponent<Rigidbody>();   //Rigidbody bileşeni al
     }
@@ -40,6 +43,10 @@ public class Geser_Attack : MonoBehaviour
     }
     private void Update()
     {
+        foreach (Collider2D enemy in hitenemies)
+        {
+            Debug.Log("hit");
+        }
         AttackAnimations();
         //Attack();
     }
@@ -50,6 +57,7 @@ public class Geser_Attack : MonoBehaviour
     {
         if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordAttack)
         {
+
             // Speed parametresine değeri atayarak blend tree geçişini kontrol et
             animatorAttack.SetBool("Sword", isAttacking);
         }
@@ -59,8 +67,20 @@ public class Geser_Attack : MonoBehaviour
         }
         
     }
-    
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        
+        Gizmos.DrawSphere(attackPoint.position, AttackRange);
+    }
 
+    void AttackSystemColliders()
+    {
+  
+        
+       
+    }
     //---------------------------- MEKANİK FONKSİYONLAR-------------------------------------------//
     public void Attack()
     {
@@ -69,7 +89,8 @@ public class Geser_Attack : MonoBehaviour
 
             // Rigidbody'ye kuvvet uygula
             rbAttack.AddForce(attackDirection * attackForce, ForceMode.Impulse);
-        
+          
+
     }
 
     //----------------------------INPUT SYSTEM FONKSİYONLAR-------------------------------------------//
@@ -86,6 +107,7 @@ public class Geser_Attack : MonoBehaviour
     {
         isAttacking = context.ReadValueAsButton(); // Saldırı girdilerini al
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordAttack;
+        
     }
     private void DeInputAttack(InputAction.CallbackContext context)
     {

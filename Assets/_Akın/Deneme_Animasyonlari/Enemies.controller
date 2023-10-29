@@ -171,9 +171,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 0}
-  attackRange: 2
+  attackRange: 4
   DashRange: 3
-  MoveRange: 0
+  MoveRange: 8
   backTransform: {fileID: 0}
   leftTransform: {fileID: 0}
   rightTransorm: {fileID: 0}

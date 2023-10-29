@@ -10,7 +10,7 @@ public class Geser_Movement : MonoBehaviour
     private float horizontalInput, verticalInput;               // Vector2 deðiþkenin x ve y deðerlerini atayacaðýmýz Yatay ve dikey girdileri
     [SerializeField] private float moveSpeed, rotationSpeed;    // Hareket hýzý ve dönüþ hýzý
     private Rigidbody rb;                                       // Karakterin Rigidbody bileþeni
-
+    public bool charactermovement;
     Geser_StateSystem stateSystem;
 
     // ANÝMASYON DEÐÝÞKENLERÝ
@@ -41,10 +41,12 @@ public class Geser_Movement : MonoBehaviour
     }
     private void Update()
     {
-        Movement();   // Hareket fonksiyonunu çaðýr
-        Rotate();                    // Rotasyon fonksiyonunu çaðýr
-        MovementAnimations();        // Animasyon fonksiyonunu çaðýr
-
+        if (charactermovement)
+        {
+            Movement();   // Hareket fonksiyonunu çaðýr
+            Rotate();                    // Rotasyon fonksiyonunu çaðýr
+            MovementAnimations();        // Animasyon fonksiyonunu çaðýr
+        }
         
     }
 

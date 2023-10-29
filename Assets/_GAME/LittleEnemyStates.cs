@@ -21,10 +21,10 @@ public class LittleEnemyStates : StateMachineBehaviour
     bool isMove; // karakter yürüyüp yürümemeyi kontrol etme
     int random = 0; // yön seçerken random bir index seçme
     bool isDash = true; // dash atarkenki bool
-
+    
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        player = GameObject.Find("player").transform; 
+        player = GameObject.Find("GESAR").transform; 
         rb = animator.GetComponent<Rigidbody>();
         thisEnemy = animator.GetComponent<enemyHealthSystem>();
         isMove = true; 
@@ -36,10 +36,11 @@ public class LittleEnemyStates : StateMachineBehaviour
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log(Vector3.Distance(player.position, rb.position));
+        //Debug.Log(Vector3.Distance(player.position, rb.position));
         
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alınır
         Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsı
+        
         thisEnemy.gameObject.transform.LookAt(player);
 
         if (thisEnemy.isDashCooldown)
@@ -52,28 +53,34 @@ public class LittleEnemyStates : StateMachineBehaviour
         if (thisEnemy.enemyType == enemyTypes.BigEnemy || thisEnemy.enemyType == enemyTypes.littleEnemy) //Karakterin kendi scriptindeki enum tipine göre davranış sergiler.
         {
             // bu kısım küçük ve büyük düşmanlar için
-            if (Vector3.Distance(player.position, rb.position) <= attackRange) // karakter belli bir mesafedeyse
+            if (Vector3.Distance(player.position, rb.position) <= attackRange && !thisEnemy.instance.isCaptured) // karakter belli bir mesafedeyse
             {
                 isMove = false;
                 animator.SetTrigger("Attack");
             }
 
-            else // değilse
+            else if (Vector3.Distance(player.position, rb.position) > attackRange && !thisEnemy.instance.isCaptured) // değilse
             {
                 isMove = true;
             }
+            else if (thisEnemy.instance.isCaptured)
+                isMove = false;
         }
         else if (thisEnemy.enemyType == enemyTypes.rangedEnemy) // mesafeli düşmanlar için
         {
-            if(Vector3.Distance(player.position,rb.position) > MoveRange) // belli bir mesafeden fazlaysa yürü
+            if(Vector3.Distance(player.position,rb.position) > MoveRange && !thisEnemy.instance.isCaptured) // belli bir mesafeden fazlaysa yürü
             {
                 Debug.Log("a");
                 isMove = true; //düşmanın bize saldırabileceği maksimum attack mesafesi için
             }
-            else if(Vector3.Distance(player.position, rb.position) > DashRange && Vector3.Distance(player.position, rb.position) < MoveRange) // dash mesafesi ile move mesafesi arasındaysa yürümeyi kes ve saldır.
+            else if(Vector3.Distance(player.position, rb.position) > DashRange && Vector3.Distance(player.position, rb.position) < MoveRange && !thisEnemy.instance.isCaptured) // dash mesafesi ile move mesafesi arasındaysa yürümeyi kes ve saldır.
             {
                 isMove = false;
                 Debug.Log("attack");
+            }
+            else if (thisEnemy.instance.isCaptured)
+            {
+                isMove = false;
             }
             
             if(Vector3.Distance(player.position, rb.position) < DashRange) // Belli bir mesafenin altındaysa dash at

@@ -4,12 +4,13 @@ namespace BarthaSzabolcs.IsometricAiming
     public class raycastpointerRotation : MonoBehaviour
     {
         [SerializeField] private LayerMask groundMask;
-        public TargetRaycastSystem rayDuration;
+        public Geser_Movement rayDuration;
 
         private Camera mainCamera;
 
         private void Start()
         {
+            rayDuration = GameObject.Find("GESAR").GetComponent<Geser_Movement>();
             mainCamera = Camera.main;
         }
 
@@ -34,7 +35,7 @@ namespace BarthaSzabolcs.IsometricAiming
         {
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask) && rayDuration.characterMovement)
+            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask) && rayDuration.charactermovement)
             {
                 return (success: true, position: hitInfo.point);
             }
