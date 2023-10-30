@@ -20,6 +20,7 @@ public class Geser_Attack : MonoBehaviour
     // ANİMASYON DEĞİŞKENLERİ
     private Animator animatorAttack;                            // Karakter için bir Animator bileşeni
     Collider2D[] hitenemies;
+    public int comboIndex = 0;
 
     //----------------------------UNITY MONOBEHAVIOR FONKSİYONLARI-------------------------------------------//
     private void Awake()
@@ -55,17 +56,15 @@ public class Geser_Attack : MonoBehaviour
     //----------------------------ANİMASYON GECİKME FONKSİYONLARI-------------------------------------------//
     private void AttackAnimations()
     {
-        if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordAttack)
-        {
-
-            // Speed parametresine değeri atayarak blend tree geçişini kontrol et
-            animatorAttack.SetBool("Sword", isAttacking);
-        }
-        else
-        {
-            animatorAttack.SetBool("Sword", false);
-        }
         
+        
+        animatorAttack.SetInteger("ComboIndex",comboIndex);
+        
+    }
+
+    public void ComboIndexReset()
+    {
+        comboIndex=0;
     }
     private void OnDrawGizmosSelected()
     {
@@ -107,7 +106,7 @@ public class Geser_Attack : MonoBehaviour
     {
         isAttacking = context.ReadValueAsButton(); // Saldırı girdilerini al
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordAttack;
-        
+        comboIndex++;
     }
     private void DeInputAttack(InputAction.CallbackContext context)
     {

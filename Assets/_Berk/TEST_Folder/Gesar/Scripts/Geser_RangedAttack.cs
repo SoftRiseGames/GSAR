@@ -6,21 +6,21 @@ using UnityEngine.InputSystem;
 
 public class Geser_RangedAttack : MonoBehaviour
 {
-    // RANGE DEÐÝÞKENLERÝ
-    private GesarInput gesarInputRanged;            // Input Systemin oluþturduðu classtan bir nesne 
+    // RANGE DEÄžÄ°ÅžKENLERÄ°
+    private GesarInput gesarInputRanged;            // Input Systemin oluÅŸturduÄŸu classtan bir nesne 
     [SerializeField] private bool isBow;            
     
     Geser_StateSystem stateSystem;
 
-    // ANÝMASYON DEÐÝÞKENLERÝ
+    // ANÄ°MASYON DEÄžÄ°ÅžKENLERÄ°
     private Animator animatorRanged;
 
-    private Geser_Movement geserMovement; // Geser_Movement scriptine eriþim için referans
+    private Geser_Movement geserMovement; // Geser_Movement scriptine eriÅŸim iÃ§in referans
 
-    //----------------------------UNITY MONOBEHAVIOR FONKSÝYONLARI-------------------------------------------//
+    //----------------------------UNITY MONOBEHAVIOR FONKSÄ°YONLARI-------------------------------------------//
     private void Start()
     {
-        geserMovement = GetComponent<Geser_Movement>(); // Geser_Movement scriptine eriþim için referansý al
+        geserMovement = GetComponent<Geser_Movement>(); // Geser_Movement scriptine eriÅŸim iÃ§in referansÄ± al
         animatorRanged = GetComponent<Animator>();
     }
     private void Awake()
@@ -30,11 +30,11 @@ public class Geser_RangedAttack : MonoBehaviour
     }
     private void OnEnable()
     {
-        gesarInputRanged.Gameplay.Enable(); // Gameplay action map'ini etkinleþtir
+        gesarInputRanged.Gameplay.Enable(); // Gameplay action map'ini etkinleÅŸtir
     }
     private void OnDisable()
     {
-        gesarInputRanged.Gameplay.Disable(); // Gameplay action map'ini devre dýþý býrak
+        gesarInputRanged.Gameplay.Disable(); // Gameplay action map'ini devre dÄ±ÅŸÄ± bÄ±rak
     }
     private void Update()
     {
@@ -42,7 +42,7 @@ public class Geser_RangedAttack : MonoBehaviour
         
     }
 
-    //----------------------------ANÝMASYON GECÝKME FONKSÝYONLARI-------------------------------------------//
+    //----------------------------ANÄ°MASYON GECÄ°KME FONKSÄ°YONLARI-------------------------------------------//
     private void MovementAnimations()
     {
         if(stateSystem.currentState== Geser_StateSystem.AnimState.BowReady)
@@ -56,13 +56,13 @@ public class Geser_RangedAttack : MonoBehaviour
         
     }
 
-    //---------------------------- MEKANÝK FONKSÝYONLAR-------------------------------------------//
+    //---------------------------- MEKANÄ°K FONKSÄ°YONLAR-------------------------------------------//
     
 
-    //----------------------------INPUT SYSTEM FONKSÝYONLAR-------------------------------------------//
+    //----------------------------INPUT SYSTEM FONKSÄ°YONLAR-------------------------------------------//
     private void RangedInputActionsControl()
     {
-        gesarInputRanged = new GesarInput(); // GesarInput nesnesini oluþtur
+        gesarInputRanged = new GesarInput(); // GesarInput nesnesini oluÅŸtur
 
         // Yay girdilerini kontrol et
         gesarInputRanged.Gameplay.Bow.performed += InputBow;

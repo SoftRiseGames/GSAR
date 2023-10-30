@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1417677
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6011c6bc87546e04ab6ac886fffecf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  player: {fileID: 0}
+  character: {fileID: 972755387}
+  player: {fileID: 972755365}
   enemyStates: {fileID: 0}
   instance: {fileID: 0}
   isDeath: 0
@@ -1218,6 +1218,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  comboIndex: 0
 --- !u!114 &972755376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   rotationSpeed: 7
+  charactermovement: 0
 --- !u!114 &972755377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1681,19 +1683,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.38268343
+      value: 0.42748147
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.92387956
+      value: 0.9040241
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1701,7 +1703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 135
+      value: 129.384
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1749,7 +1751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_Name
-      value: Anahtar_oda_Base_1
+      value: "\xC7evre"
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 743bc97b7c5bacf49b70141f17584010, type: 3}
       propertyPath: m_Layer
