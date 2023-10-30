@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,14 @@ using UnityEngine.InputSystem;
 
 public class Geser_Attack : MonoBehaviour
 {
-    // SALDIRI DEĞİŞKENLERİ
     private GesarInput gesarInputAttack;                        // Input Systemin oluşturduğu classtan bir nesne 
     [SerializeField] private bool isAttacking;                  // Saldırı yapılıp yapılmadığını belirten bool değişken
     private Rigidbody rbAttack;                                 // Karakter rigidbody
     [SerializeField] float attackForce = 10f;                   // Saldırı kuvveti, istediğiniz değere ayarlayabilirsiniz
+    
+    public GameObject geser;
+    private Vector3 _frontVector;
+    public float dashLength;
 
     private Geser_StateSystem stateSystem;
     public Transform attackPoint;
@@ -60,6 +64,12 @@ public class Geser_Attack : MonoBehaviour
         
         animatorAttack.SetInteger("ComboIndex",comboIndex);
         
+    }
+
+    public void AttackDash()
+    {
+        _frontVector = geser.transform.position + (geser.transform.forward * dashLength);
+        geser.transform.DOMove(_frontVector, 0.5f);
     }
 
     public void ComboIndexReset()

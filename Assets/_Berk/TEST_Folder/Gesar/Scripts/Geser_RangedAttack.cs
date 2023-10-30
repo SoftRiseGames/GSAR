@@ -8,7 +8,9 @@ public class Geser_RangedAttack : MonoBehaviour
 {
     // RANGE DEĞİŞKENLERİ
     private GesarInput gesarInputRanged;            // Input Systemin oluşturduğu classtan bir nesne 
-    [SerializeField] private bool isBow;            
+    [SerializeField] private bool isBow;
+    [SerializeField] private GameObject arrow, arrowPoint;
+    public float arrowSpeed;
     
     Geser_StateSystem stateSystem;
 
@@ -40,6 +42,7 @@ public class Geser_RangedAttack : MonoBehaviour
     {
         MovementAnimations();
         
+        
     }
 
     //----------------------------ANİMASYON GECİKME FONKSİYONLARI-------------------------------------------//
@@ -57,8 +60,15 @@ public class Geser_RangedAttack : MonoBehaviour
     }
 
     //---------------------------- MEKANİK FONKSİYONLAR-------------------------------------------//
-    
+    private void ArrowSpawn()
+    {
+        GameObject cloneArrow = Instantiate(arrow, arrowPoint.transform.position, arrowPoint.transform.rotation);
+        Rigidbody rbArrow = cloneArrow.GetComponent<Rigidbody>();
+        rbArrow.AddForce(arrowPoint.transform.forward*arrowSpeed,ForceMode.Impulse);
+    }
 
+    
+    
     //----------------------------INPUT SYSTEM FONKSİYONLAR-------------------------------------------//
     private void RangedInputActionsControl()
     {
@@ -75,8 +85,8 @@ public class Geser_RangedAttack : MonoBehaviour
     }
     private void DeInputBow(InputAction.CallbackContext context)
     {
-        
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordReady;
+        ArrowSpawn();
     }
 
 
