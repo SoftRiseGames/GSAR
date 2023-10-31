@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db36dd7c-e9a8-4917-97ef-1d8f3a4f8a4a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GSAR/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GSAR/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Standing Aim Recoil.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Standing Aim Recoil.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GSAR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GSAR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Gesar.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Gesar.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Sword And Shield Slash.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Sword And Shield Slash.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Sword And Shield Slashhh.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Anims/Sword And Shield Slashhh.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Prefab/Arrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Prefab/Arrow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/AttackAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/AttackAnimation.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/Geser_Attack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/Geser_Attack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/Geser_RangedAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/Scripts/Geser_RangedAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/TEST_Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Berk/TEST_Folder/Gesar/TEST_Scene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +110,14 @@
       <workItem from="1698485210534" duration="67000" />
       <workItem from="1698487638073" duration="1391000" />
       <workItem from="1698500947105" duration="246000" />
+      <workItem from="1698646148627" duration="188000" />
+      <workItem from="1698646534368" duration="95000" />
+      <workItem from="1698646731363" duration="300000" />
+      <workItem from="1698647462630" duration="106000" />
+      <workItem from="1698647580375" duration="59000" />
+      <workItem from="1698670279913" duration="1150000" />
+      <workItem from="1698681026603" duration="1826000" />
+      <workItem from="1698685844532" duration="1536000" />
     </task>
     <servers />
   </component>

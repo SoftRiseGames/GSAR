@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,14 @@ using UnityEngine.InputSystem;
 
 public class Geser_Attack : MonoBehaviour
 {
-    // SALDIRI DEĞİŞKENLERİ
     private GesarInput gesarInputAttack;                        // Input Systemin oluşturduğu classtan bir nesne 
     [SerializeField] private bool isAttacking;                  // Saldırı yapılıp yapılmadığını belirten bool değişken
     private Rigidbody rbAttack;                                 // Karakter rigidbody
     [SerializeField] float attackForce = 10f;                   // Saldırı kuvveti, istediğiniz değere ayarlayabilirsiniz
+    
+    public GameObject geser;
+    private Vector3 _frontVector;
+    public float dashLength;
 
     private Geser_StateSystem stateSystem;
     public Transform attackPoint;
@@ -20,6 +24,7 @@ public class Geser_Attack : MonoBehaviour
     // ANİMASYON DEĞİŞKENLERİ
     private Animator animatorAttack;                            // Karakter için bir Animator bileşeni
     Collider2D[] hitenemies;
+    public int comboIndex = 0;
 
     //----------------------------UNITY MONOBEHAVIOR FONKSİYONLARI-------------------------------------------//
     private void Awake()
@@ -55,17 +60,21 @@ public class Geser_Attack : MonoBehaviour
     //----------------------------ANİMASYON GECİKME FONKSİYONLARI-------------------------------------------//
     private void AttackAnimations()
     {
-        if (stateSystem.currentState == Geser_StateSystem.AnimState.SwordAttack)
-        {
-
-            // Speed parametresine değeri atayarak blend tree geçişini kontrol et
-            animatorAttack.SetBool("Sword", isAttacking);
-        }
-        else
-        {
-            animatorAttack.SetBool("Sword", false);
-        }
         
+        
+        animatorAttack.SetInteger("ComboIndex",comboIndex);
+        
+    }
+
+    public void AttackDash()
+    {
+        _frontVector = geser.transform.position + (geser.transform.forward * dashLength);
+        geser.transform.DOMove(_frontVector, 0.5f);
+    }
+
+    public void ComboIndexReset()
+    {
+        comboIndex=0;
     }
     private void OnDrawGizmosSelected()
     {
@@ -107,7 +116,7 @@ public class Geser_Attack : MonoBehaviour
     {
         isAttacking = context.ReadValueAsButton(); // Saldırı girdilerini al
         stateSystem.currentState = Geser_StateSystem.AnimState.SwordAttack;
-        
+        comboIndex++;
     }
     private void DeInputAttack(InputAction.CallbackContext context)
     {

@@ -86,9 +86,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a17b735eb93577142a3d3b295fed1bf0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 452383205849221655}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a17b735eb93577142a3d3b295fed1bf0, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -5510376161441646756}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a17b735eb93577142a3d3b295fed1bf0, type: 3}
       insertIndex: -1
@@ -99,19 +96,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a17b735eb93577142a3d3b295fed1bf0, type: 3}
   m_PrefabInstance: {fileID: 7611380961474334512}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &452383205849221655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7304952368185242209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752decaa45763a04fa124f3b2c89f8df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasar: 10
 --- !u!65 &-5510376161441646756
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -127,7 +111,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
