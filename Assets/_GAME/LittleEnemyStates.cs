@@ -7,6 +7,7 @@ public class LittleEnemyStates : StateMachineBehaviour
     Transform player; // karakter pozisyon erişimiiçin kullanılır   
     Rigidbody rb; //rigidbody erişimi
     public enemyHealthSystem thisEnemy;// düşmana ulaşıcak olan kod
+    public GameObject thisEnemyTransform;
     [SerializeField] float attackRange; // atak mesafesi
     [Header("MesafeliDusmanlar")]
     [SerializeField] float DashRange; // mesafeli düşmanlar için ışınlanma mesafesi
@@ -15,33 +16,55 @@ public class LittleEnemyStates : StateMachineBehaviour
     [SerializeField] GameObject backTransform; // arkaya atılacak transform noktası
     [SerializeField] GameObject leftTransform; // sola gidilecek dash noktası
     [SerializeField] GameObject rightTransorm; //sağa gidilecek dash noktası
-    
+    [SerializeField] float startTransformy;
     
     [SerializeField] float speed; // hareket hızı
     bool isMove; // karakter yürüyüp yürümemeyi kontrol etme
     int random = 0; // yön seçerken random bir index seçme
     bool isDash = true; // dash atarkenki bool
-    
+
+    [Header("MinMaxSİnus")]
+    public float Speed;
+    public float Amplitude;
+    public float AmplitudeOffset;
+
+    public float YSpeed;
+    public float YAmplitude;
+    public float YAmplitudeOffset;
+
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        player = GameObject.Find("GESAR").transform; 
+        player = GameObject.Find("GESAR").transform;
+        
+        
         rb = animator.GetComponent<Rigidbody>();
         thisEnemy = animator.GetComponent<enemyHealthSystem>();
         isMove = true; 
         backTransform = GameObject.Find("backDashTransform");
         leftTransform = GameObject.Find("leftDashTransform");
         rightTransorm = GameObject.Find("rightDashTransform");
+ 
     }
 
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //Debug.Log(Vector3.Distance(player.position, rb.position));
         
+        if (thisEnemy.instance.isGroundCollide)
+        {
+            Vector3 relativePos = player.position - rb.position;
+            Quaternion rotation = Quaternion.LookRotation(new Vector3(relativePos.x, rb.transform.position.y, relativePos.z), Vector3.up);
+            rb.transform.rotation = rotation;
+        }
+       
+        Debug.Log(Vector3.Distance(player.position, rb.position));
+        //Debug.Log(Vector3.Distance(player.position, rb.position));
+
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alınır
         Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime); // karakter MoveTowardsı
         
-        thisEnemy.gameObject.transform.LookAt(player);
+        //thisEnemy.gameObject.transform.LookAt(player);
 
         if (thisEnemy.isDashCooldown)
             isDash = true; 
@@ -56,7 +79,12 @@ public class LittleEnemyStates : StateMachineBehaviour
             if (Vector3.Distance(player.position, rb.position) <= attackRange && !thisEnemy.instance.isCaptured) // karakter belli bir mesafedeyse
             {
                 isMove = false;
-                animator.SetTrigger("Attack");
+                animator.SetBool("Attack",true);
+            }
+            else if (Vector3.Distance(player.position, rb.position) > attackRange && !thisEnemy.instance.isCaptured) // karakter belli bir mesafedeyse
+            {
+                isMove = true;
+                animator.SetBool("Attack",false);
             }
 
             else if (Vector3.Distance(player.position, rb.position) > attackRange && !thisEnemy.instance.isCaptured) // değilse
@@ -108,6 +136,41 @@ public class LittleEnemyStates : StateMachineBehaviour
             }
         }
 
+        if(thisEnemy.enemyType == enemyTypes.littleEnemy)
+        {
+           
+            if (thisEnemy.instance.isGroundCollide)
+            {
+                if(Vector3.Distance(player.position,rb.position)>10 && Vector3.Distance(player.position, rb.position) < 20)
+                {
+                   
+                    isMove = false;
+                    var yoffset = new Vector3(0, Mathf.Sin(Time.time * YSpeed) * YAmplitude, 0);
+                    rb.position = Vector3.Lerp(rb.position + yoffset, player.position, Mathf.Sin(Time.time * Speed) * Amplitude + AmplitudeOffset);
+                   
+                    
+                    //rb.DOMove(player.transform.position, .25f);
+
+                    /*
+                     isMove = false;
+                     Vector3 Distance = player.transform.position - rb.transform.position;
+                     float height = Distance.y;
+                     Vector3 halfrange = new Vector3(Distance.x, 0, Distance.z);
+                     float Vy = Mathf.Sqrt(-2 * Physics.gravity.y * height);
+                     Vector3 VXY = -(halfrange * Physics.gravity.y) / Vy;
+
+                     rb.velocity = new Vector3(VXY.x, Vy, VXY.z);
+ ;                    //rb.AddForce(force * power);
+                     //rb.DOMoveY(player.position.y, 1);
+                    // rb.velocity = Vector3.up * 500*Time.deltaTime;
+                     //rb.DOMove(player.position, .3f).OnUpdate(() => rb.DOMoveY(player.position.y+3, 0.15f)).OnComplete(() => rb.DOMoveY()).SetEase(Ease.Linear);
+                    */
+                }
+            }
+           
+
+        }
+
         if (isMove)
             rb.MovePosition(newPos); // rigidbody ile gidişi
 
@@ -124,7 +187,7 @@ public class LittleEnemyStates : StateMachineBehaviour
    
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger("Attack");
+        animator.SetBool("Attack",false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

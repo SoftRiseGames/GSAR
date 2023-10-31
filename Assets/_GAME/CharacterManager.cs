@@ -21,11 +21,11 @@ public class CharacterManager : MonoBehaviour
         {
             if (i < health)
             {
-                hearts[i].enabled = fullhearts;
+                hearts[i].GetComponent<Image>().sprite = fullhearts;
             }
             else
             {
-                hearts[i].sprite = emptyhearts;
+                hearts[i].GetComponent<Image>().sprite = emptyhearts;
             }
         }
     }

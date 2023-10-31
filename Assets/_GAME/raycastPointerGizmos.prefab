@@ -102,11 +102,11 @@ MonoBehaviour:
     m_Bits: 8
   lineRenderer: {fileID: 0}
   character: {fileID: 0}
-  characterMovement: 0
   pos1: {fileID: 6814742967862630053}
   pos2: {fileID: 0}
   dist: 0
   isGo: 0
+  CharacterMovement: {fileID: 0}
   lineDrawSpeed: 0.03
 --- !u!1 &7635533114409821588
 GameObject:
@@ -346,4 +346,4 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  rayDuration: {fileID: 6310750673669717501}
+  rayDuration: {fileID: 0}

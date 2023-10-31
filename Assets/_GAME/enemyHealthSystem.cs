@@ -17,11 +17,16 @@ public class enemyHealthSystem : MonoBehaviour
     public enemyTypes enemyType;
     public bool isDashCooldown;
     public bool isCaptured;
+    public float Distance;
+    public bool isGroundCollide;
+    public bool isConnect;
     void Start()
     {
         character = GameObject.Find("GESAR").GetComponent<CharacterManager>();
         if (instance == null)
             instance = this;
+
+        BaseStartDistance();
     }
 
     private void Update()
@@ -32,14 +37,21 @@ public class enemyHealthSystem : MonoBehaviour
     }
     public int DamageSys(int dmglittle, int dmgbig)
     {
-        if (enemyType == enemyTypes.BigEnemy)
-            character.health = character.health - dmgbig;
-        else if (enemyType == enemyTypes.littleEnemy)
+       if (enemyType == enemyTypes.BigEnemy)
+           character.health = character.health - dmgbig;
+       else if (enemyType == enemyTypes.littleEnemy)
             character.health = character.health - dmglittle;
-        
+       
         return character.health;
 
         //eventsystemde karakterin nerede vurduðunda ne kadar can götüreceðine dair veri baþlýðý
+    }
+    public void BaseStartDistance()
+    {
+        if (enemyType == enemyTypes.BigEnemy)
+            Distance = 3;
+        else if (enemyType == enemyTypes.littleEnemy)
+            Distance = 3;
     }
     IEnumerator wait()
     {
@@ -51,10 +63,28 @@ public class enemyHealthSystem : MonoBehaviour
     public void Damage() => DamageSys(littleEnemyDamage, bigEnemyDamage); // eventsystemde aktif olarak gözükmesi için bir voide atanmasý gerek. Çaðýrýrken damage üzerinden çaðýrýlacak.
     public void DashCooldown() => StartCoroutine(wait());
 
-    public void DestroySystem()
+    public void OnCollisionEnter(Collision collision)
     {
-       
+        if(collision.gameObject.name == "Cevre")
+        {
+            isGroundCollide = true;
+        }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.name == "Cevre")
+        {
+            isGroundCollide = true;
+        }
+    }
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "Cevre")
+        {
+            isGroundCollide = false;
+        }
+    }
+
 }
 
 
