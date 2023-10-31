@@ -33,11 +33,11 @@ public class enemyHealthSystem : MonoBehaviour
     public int DamageSys(int dmglittle, int dmgbig)
     {
         if (enemyType == enemyTypes.BigEnemy)
-            character.Health = character.Health - dmgbig;
+            character.health = character.health - dmgbig;
         else if (enemyType == enemyTypes.littleEnemy)
-            character.Health = character.Health - dmglittle;
+            character.health = character.health - dmglittle;
         
-        return character.Health;
+        return character.health;
 
         //eventsystemde karakterin nerede vurduğunda ne kadar can götüreceğine dair veri başlığı
     }
