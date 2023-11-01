@@ -50,14 +50,15 @@ public class LittleEnemyStates : StateMachineBehaviour
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        /*
         if (thisEnemy.instance.isGroundCollide)
         {
             Vector3 relativePos = player.position - rb.position;
             Quaternion rotation = Quaternion.LookRotation(new Vector3(relativePos.x, rb.transform.position.y, relativePos.z), Vector3.up);
             rb.transform.rotation = rotation;
         }
-       
+       */
+        animator.transform.LookAt(player.transform);
         Debug.Log(Vector3.Distance(player.position, rb.position));
         //Debug.Log(Vector3.Distance(player.position, rb.position));
 
@@ -143,11 +144,11 @@ public class LittleEnemyStates : StateMachineBehaviour
             {
                 if(Vector3.Distance(player.position,rb.position)>10 && Vector3.Distance(player.position, rb.position) < 20)
                 {
-                   
+                   /*
                     isMove = false;
                     var yoffset = new Vector3(0, Mathf.Sin(Time.time * YSpeed) * YAmplitude, 0);
                     rb.position = Vector3.Lerp(rb.position + yoffset, player.position, Mathf.Sin(Time.time * Speed) * Amplitude + AmplitudeOffset);
-                   
+                   */
                     
                     //rb.DOMove(player.transform.position, .25f);
 

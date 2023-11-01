@@ -8,7 +8,7 @@ public class enemyHealthSystem : MonoBehaviour
     public GameObject player;
     public littleEnemyStates enemyStates;
     public enemyHealthSystem instance;
-    public bool isDeath;
+   
     [Header("healthVeriables")]
     [SerializeField] int littleEnemyDamage;
     [SerializeField] int bigEnemyDamage;
@@ -32,8 +32,7 @@ public class enemyHealthSystem : MonoBehaviour
     private void Update()
     {
         
-        if (isDeath)
-            Destroy(instance.gameObject);
+       
     }
     public int DamageSys(int dmglittle, int dmgbig)
     {

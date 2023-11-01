@@ -87,17 +87,13 @@ public class TargetRaycastSystem : MonoBehaviour
             if (x == dist)
             {
                 character.transform.DOMove(new Vector3(dedect.transform.position.x, 0, dedect.transform.position.z), 1).OnComplete(() => { CharacterMovement.charactermovement = true; });
-                StartCoroutine(DestroyObject(dedect.transform.gameObject));
+              
                 isGo = false;
             }
         }
 
 
     }
-    IEnumerator DestroyObject(GameObject dedect)
-    {
-       yield return new WaitForSeconds(1f);
-        Destroy(dedect);
-    }
+  
 
 }
