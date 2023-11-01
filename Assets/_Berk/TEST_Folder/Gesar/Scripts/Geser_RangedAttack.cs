@@ -64,7 +64,9 @@ public class Geser_RangedAttack : MonoBehaviour
     {
         GameObject cloneArrow = Instantiate(arrow, arrowPoint.transform.position, arrowPoint.transform.rotation);
         Rigidbody rbArrow = cloneArrow.GetComponent<Rigidbody>();
-        rbArrow.AddForce(arrowPoint.transform.forward*arrowSpeed,ForceMode.Impulse);
+        rbArrow.AddForce(transform.forward*arrowSpeed,ForceMode.Impulse);
+        
+        
     }
 
     
