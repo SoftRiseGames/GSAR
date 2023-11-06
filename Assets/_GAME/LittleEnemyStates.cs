@@ -58,8 +58,8 @@ public class LittleEnemyStates : StateMachineBehaviour
             rb.transform.rotation = rotation;
         }
        */
-        animator.transform.LookAt(player.transform);
-        Debug.Log(Vector3.Distance(player.position, rb.position));
+        animator.transform.LookAt(new Vector3(player.transform.position.x,animator.transform.position.y,player.transform.position.z));
+    
         //Debug.Log(Vector3.Distance(player.position, rb.position));
 
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z); // karakterin pozisyonu alınır
@@ -87,11 +87,6 @@ public class LittleEnemyStates : StateMachineBehaviour
                 isMove = true;
                 animator.SetBool("Attack",false);
             }
-
-            else if (Vector3.Distance(player.position, rb.position) > attackRange && !thisEnemy.instance.isCaptured) // değilse
-            {
-                isMove = true;
-            }
             else if (thisEnemy.instance.isCaptured)
                 isMove = false;
         }
@@ -111,7 +106,7 @@ public class LittleEnemyStates : StateMachineBehaviour
             {
                 isMove = false;
             }
-            
+           
             if(Vector3.Distance(player.position, rb.position) < DashRange) // Belli bir mesafenin altındaysa dash at
             {
                

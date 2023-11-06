@@ -16,6 +16,7 @@ public class TargetRaycastSystem : MonoBehaviour
     public bool isGo;
     public Geser_Movement CharacterMovement;
     [SerializeField] float lineDrawSpeed;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class TargetRaycastSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(dist);
         //Debug.DrawLine(transform.position, transform.position + transform.up * -50, Color.green);
         lineRenderer.SetPosition(0, pos1.position);
 
@@ -47,7 +48,7 @@ public class TargetRaycastSystem : MonoBehaviour
         }
         else
         {
-            pos2 = null;
+            //pos2 = null;
             counter = 0;
             dist = 0;
             lineRenderer.enabled = false;
@@ -68,7 +69,13 @@ public class TargetRaycastSystem : MonoBehaviour
         lineRenderer.enabled = true;
         isGo = true;
     }
+    void PlayerEffect()
+    {
+        if (dist < 2)
+            pos2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, gameObject.transform.position.z * -2);
 
+
+    }
     public void LineRendererAnimation()
     {
         if (counter < dist && isGo == true)
@@ -86,14 +93,17 @@ public class TargetRaycastSystem : MonoBehaviour
 
             if (x == dist)
             {
-                character.transform.DOMove(new Vector3(dedect.transform.position.x, 0, dedect.transform.position.z), 1).OnComplete(() => { CharacterMovement.charactermovement = true; });
-              
+                character.transform.DOMove(dedect.transform.position, speed).OnUpdate(() =>PlayerEffect()).OnComplete(() => { CharacterMovement.charactermovement = true;  pos2.GetComponent<enemyHealthSystem>().isCaptured = false;  pos2 = null; });
+             
+                
                 isGo = false;
             }
+            
         }
 
 
     }
+  
   
 
 }

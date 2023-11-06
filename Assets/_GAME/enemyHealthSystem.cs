@@ -19,7 +19,8 @@ public class enemyHealthSystem : MonoBehaviour
     public bool isCaptured;
     public float Distance;
     public bool isGroundCollide;
-    public bool isConnect;
+
+    
     void Start()
     {
         character = GameObject.Find("GESAR").GetComponent<CharacterManager>();
